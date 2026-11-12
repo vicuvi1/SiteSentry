@@ -61,6 +61,39 @@ class HttpResponse:
         return self.body.decode("utf-8", errors="replace")
 
 
+try:  # optional: Mozilla's CA bundle, so results don't depend on this machine's trust store
+    import certifi
+    CA_BUNDLE: str | None = certifi.where()
+except ImportError:
+    CA_BUNDLE = None
+
+# OpenSSL codes meaning "couldn't build a chain to a trusted root" (missing intermediate or unknown root),
+# as opposed to a certificate that is actually invalid (expired, wrong hostname, self-signed...).
+CHAIN_ERROR_CODES = {2, 20, 21}
+
+
+def make_ssl_context(verify: bool = True) -> ssl.SSLContext:
+    """TLS client context: system roots + Mozilla roots (if certifi is installed), TLS 1.2+.
+
+    Windows only trusts roots already cached on the machine (browsers fetch missing ones on demand),
+    so without certifi valid sites can look untrusted. With verify=False we deliberately still read a
+    site whose certificate is broken (already reported as a finding) so the remaining checks can run.
+    """
+    if not verify:
+        ctx = ssl._create_unverified_context()  # noqa: S323
+        ctx.minimum_version = ssl.TLSVersion.TLSv1_2
+        return ctx
+    ctx = ssl.create_default_context()
+    ctx.minimum_version = ssl.TLSVersion.TLSv1_2
+    if CA_BUNDLE:
+        ctx.load_verify_locations(CA_BUNDLE)
+    return ctx
+
+
+def is_chain_error(exc: ssl.SSLCertVerificationError) -> bool:
+    return getattr(exc, "verify_code", None) in CHAIN_ERROR_CODES
+
+
 class _PinnedHTTPConnection(http.client.HTTPConnection):
     """Connects to a pre-vetted IP while keeping the real Host header."""
 
@@ -118,9 +151,7 @@ def request(
 
     conn: http.client.HTTPConnection
     if parts.scheme == "https":
-        # Deliberate: with verify=False we still read a site whose certificate is broken
-        # (already reported as a critical finding) so the remaining checks can run.
-        ctx = ssl.create_default_context() if verify else ssl._create_unverified_context()  # noqa: S323
+        ctx = make_ssl_context(verify)
         if ip:
             conn = _PinnedHTTPSConnection(parts.hostname, parts.port, ip=ip, timeout=timeout, context=ctx)
         else:

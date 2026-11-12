@@ -10,7 +10,7 @@ from urllib.parse import urlsplit, urlunsplit
 from . import scoring
 from .checks import content, cookies, cors, disclosure, email_dns, headers, misc, tls, transport
 from .models import Finding, ScanResult
-from .net import FetchError, HttpResponse, fetch_chain, request
+from .net import CA_BUNDLE, FetchError, HttpResponse, fetch_chain, is_chain_error, request
 from .safety import BlockedTarget, TargetGuard
 
 
@@ -68,6 +68,7 @@ def scan(
     chain: list[HttpResponse] | None = None
     https_ok = False
     cert_ok = False
+    chain_only = False
 
     log(f"Connecting to {https_url}")
     try:
@@ -75,7 +76,9 @@ def scan(
         https_ok = cert_ok = True
     except ssl.SSLCertVerificationError as exc:
         https_ok = True
-        findings.append(tls.certificate_invalid(getattr(exc, "verify_message", "") or str(exc)))
+        message = getattr(exc, "verify_message", "") or str(exc)
+        chain_only = is_chain_error(exc)
+        findings.append(tls.chain_incomplete(message, bool(CA_BUNDLE)) if chain_only else tls.certificate_invalid(message))
         try:
             chain = fetch_chain(https_url, timeout=timeout, verify=False, guard=guard)
         except (FetchError, ssl.SSLError) as exc2:
@@ -115,9 +118,9 @@ def scan(
     except (FetchError, ssl.SSLError) as exc:
         findings.append(transport.http_redirect(None, str(exc)))
 
-    if https_ok and cert_ok:
+    if https_ok and (cert_ok or chain_only):
         log("Inspecting TLS configuration")
-        findings += tls.run(host, https_port, timeout, connect_ip=pinned_ip)
+        findings += tls.run(host, https_port, timeout, connect_ip=pinned_ip, verify=cert_ok)
 
     log("Looking for security.txt")
     origin = urlunsplit((urlsplit(final.url).scheme, urlsplit(final.url).netloc, "", "", ""))

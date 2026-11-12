@@ -7,6 +7,7 @@ import time
 import warnings
 
 from ..models import Finding, Severity, Status
+from ..net import make_ssl_context
 
 CAT = "TLS"
 
@@ -104,15 +105,28 @@ def legacy_finding(results: dict[str, bool | None]) -> Finding:
                    "TLS 1.0 and 1.1 are refused.")
 
 
-def run(host: str, port: int, timeout: float = 10.0, connect_ip: str | None = None) -> list[Finding]:
-    """connect_ip pins the TCP connection to an address vetted by the SSRF guard."""
-    ctx = ssl.create_default_context()
+def chain_incomplete(message: str, have_ca_bundle: bool) -> Finding:
+    hint = "" if have_ca_bundle else (
+        " (It may also be a root missing from this computer's trust store: install 'certifi' for a definitive answer.)")
+    return Finding("tls.chain", CAT, "Certificate chain", Status.WARN, Severity.MEDIUM,
+                   "The certificate couldn't be linked to a trusted root. Usually the server isn't sending its "
+                   "intermediate certificate. Browsers often repair this automatically, but curl, Python, Java and "
+                   "many mobile or API clients will refuse to connect." + hint,
+                   "Serve the full chain (your certificate plus intermediates), e.g. fullchain.pem with Let's Encrypt.",
+                   evidence=message, reference="https://www.ssllabs.com/ssltest/")
+
+
+def run(host: str, port: int, timeout: float = 10.0, connect_ip: str | None = None,
+        verify: bool = True) -> list[Finding]:
+    """connect_ip pins the TCP connection to an address vetted by the SSRF guard.
+    verify=False still reports the protocol when the chain can't be verified (expiry needs a verified cert)."""
+    ctx = make_ssl_context(verify)
     try:
         with socket.create_connection((connect_ip or host, port), timeout=timeout) as sock:
             with ctx.wrap_socket(sock, server_hostname=host) as tls:
                 version, cipher, cert = tls.version(), (tls.cipher() or (None,))[0], tls.getpeercert()
     except ssl.SSLCertVerificationError:
-        return []  # already reported by the scanner as an invalid certificate
+        return []  # already reported by the scanner
     except OSError as exc:
         return [Finding("tls.handshake", CAT, "TLS handshake", Status.INFO, Severity.INFO,
                         f"Could not analyse TLS details: {exc}")]

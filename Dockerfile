@@ -8,7 +8,7 @@ LABEL org.opencontainers.image.title="SiteSentry" \
 WORKDIR /app
 COPY pyproject.toml README.md LICENSE ./
 COPY sitesentry ./sitesentry
-RUN pip install --no-cache-dir . && useradd --create-home --uid 10001 scanner
+RUN pip install --no-cache-dir ".[certs]" && useradd --create-home --uid 10001 scanner
 
 # Run as an unprivileged user
 USER scanner

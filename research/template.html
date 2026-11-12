@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Security Report</title>
+<meta name="description" content="I scanned {{TOTAL}} of the world's most popular websites with SiteSentry. Here is how their security configuration really compares. Research by Victor Barbuta.">
+<meta property="og:title" content="I scanned {{TOTAL}} popular websites for security misconfigurations">
+<meta property="og:description" content="HTTPS is everywhere, but CSP, DMARC and modern TLS are not. Research by Victor Barbuta using SiteSentry.">
+<meta property="og:image" content="https://vicuvi1.github.io/SiteSentry/img/report-dark.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f46e5' d='M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3z'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f6f7fb; --surface:#fff; --surface-2:#f1f3f9; --border:#e3e6ef; --grid:#eceef4;
+  --text:#121826; --muted:#5b6478; --faint:#8a92a6;
+  --accent:#4f46e5; --accent-soft:#eef0ff;
+  --pass:#15803d; --fail:#b91c1c; --warn:#b45309;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 8px 28px rgba(16,24,40,.08);
+  --mono:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b0f17; --surface:#121826; --surface-2:#182033; --border:#243049; --grid:#1c2538;
+    --text:#e8ecf4; --muted:#a3adc2; --faint:#76819a;
+    --accent:#818cf8; --accent-soft:#1d2140;
+    --pass:#4ade80; --fail:#f87171; --warn:#fbbf24;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 36px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b0f17; --surface:#121826; --surface-2:#182033; --border:#243049; --grid:#1c2538;
+  --text:#e8ecf4; --muted:#a3adc2; --faint:#76819a;
+  --accent:#818cf8; --accent-soft:#1d2140;
+  --pass:#4ade80; --fail:#f87171; --warn:#fbbf24;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 36px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+nav{border-bottom:1px solid var(--border);background:var(--surface)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--text)}
+.brand svg{width:24px;height:24px}
+nav .links{display:flex;gap:18px;font-size:14px}
+nav .links a{color:var(--muted)}
+
+header.wrap{padding:64px 20px 28px}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;letter-spacing:-.03em;margin:0 0 16px}
+.lead{font-size:18px;color:var(--muted);max-width:720px;margin:0}
+.byline{margin-top:22px;font-size:14px;color:var(--faint)}
+.byline b{color:var(--text)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:36px 0 8px}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px}
+.tile b{display:block;font-size:36px;line-height:1.05;letter-spacing:-.03em}
+.tile span{display:block;font-weight:600;margin-top:6px;font-size:14.5px}
+.tile small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+section.wrap{padding:40px 20px}
+h2{font-size:26px;letter-spacing:-.02em;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 24px}
+.findings{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.findings li{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:12px;padding:14px 18px;color:var(--muted)}
+.findings b{color:var(--text)}
+
+.chart{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 18px;box-shadow:var(--shadow);position:relative}
+.chart h3{margin:0 0 2px;font-size:16px}
+.chart p.note{margin:0 0 18px;font-size:13.5px;color:var(--muted)}
+
+/* vertical bars: grade distribution */
+.vchart{display:flex;align-items:flex-end;gap:2px;height:220px;padding-top:24px;border-bottom:1px solid var(--border);
+  background:linear-gradient(to top,var(--grid) 1px,transparent 1px) 0 0/100% 25%}
+.vcol{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative}
+.vbar{width:min(56px,70%);background:var(--accent);border-radius:4px 4px 0 0;cursor:default;transition:opacity .15s}
+.vval{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.vlab{position:absolute;bottom:-28px;font-weight:700;font-size:14px;color:var(--muted)}
+.vchart-wrap{padding-bottom:30px}
+
+/* horizontal bars: control adoption */
+.hrow{display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:center;padding:5px 0;cursor:default}
+.hrow + .hrow{margin-top:2px}
+.hlab{font-size:14px;color:var(--text);text-align:right}
+.htrack{position:relative;height:22px;display:flex;align-items:center;
+  background:linear-gradient(to right,var(--grid) 1px,transparent 1px) 0 0/25% 100%}
+.hbar{height:16px;background:var(--accent);border-radius:0 4px 4px 0;transition:opacity .15s}
+.hval{margin-left:8px;font-size:13px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.axis{display:grid;grid-template-columns:230px 1fr;gap:14px;font-size:12px;color:var(--faint);margin-top:6px}
+.axis div:last-child{display:flex;justify-content:space-between}
+.chart:hover .vbar,.chart:hover .hbar{opacity:.55}
+.vbar:hover,.hrow:hover .hbar{opacity:1!important}
+.tip{position:fixed;z-index:10;pointer-events:none;background:var(--text);color:var(--bg);font-size:13px;line-height:1.45;
+  padding:8px 11px;border-radius:8px;max-width:280px;opacity:0;transition:opacity .1s;box-shadow:var(--shadow)}
+
+/* table */
+.tools{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.tools input{font:inherit;font-size:14px;padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);min-width:240px}
+.tablebox{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:auto;max-height:560px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{position:sticky;top:0;background:var(--surface-2);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:10px 12px;cursor:pointer;white-space:nowrap;user-select:none;border-bottom:1px solid var(--border)}
+th:hover{color:var(--text)}
+th[aria-sort]::after{content:" ▾"} th[aria-sort="ascending"]::after{content:" ▴"}
+td{padding:8px 12px;border-bottom:1px solid var(--border)}
+td.site{font-weight:600}
+td.yes{color:var(--pass);font-weight:700} td.no{color:var(--fail);font-weight:700} td.na{color:var(--faint)}
+tr.err td{color:var(--faint);font-style:italic}
+.grade{display:inline-block;min-width:34px;text-align:center;font-weight:700;font-size:12.5px;border-radius:999px;padding:2px 8px;color:#fff}
+.g-a{background:#15803d}.g-b{background:#4d7c0f}.g-c{background:#b45309}.g-d{background:#c2410c}.g-f{background:#b91c1c}
+
+.method{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.method .box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 22px}
+.method h3{margin:0 0 8px;font-size:16px}
+.method ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.method li{margin:4px 0}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);padding:1px 6px;border-radius:6px}
+.cta{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 28px;text-align:center}
+.btn{display:inline-block;padding:11px 18px;border-radius:12px;font-weight:600;font-size:15px;margin:4px}
+.btn.primary{background:var(--accent);color:#fff} .btn.ghost{border:1px solid var(--border);color:var(--text)}
+.btn:hover{text-decoration:none;opacity:.92}
+footer{padding:36px 0;text-align:center;color:var(--faint);font-size:13.5px;line-height:1.8}
+@media (max-width:760px){
+  .tiles{grid-template-columns:1fr 1fr}
+  .hrow,.axis{grid-template-columns:130px 1fr}
+  .hlab{font-size:12.5px}
+  .method{grid-template-columns:1fr}
+  nav .links .hide{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--accent)" d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3z"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m8.5 12 2.5 2.5 4.5-5"/></svg>SiteSentry</a>
+    <div class="links"><a class="hide" href="#findings">Findings</a><a class="hide" href="#data">Data</a><a href="./">Project</a><a href="https://github.com/vicuvi1/SiteSentry">GitHub</a></div>
+  </div>
+</nav>
+
+<header class="wrap">
+  <div class="kicker">Security research · {{DATE}}</div>
+  <h1>I scanned {{TOTAL}} of the world's most popular websites. Here's how secure they really are.</h1>
+  <p class="lead">Every site uses HTTPS now, but that's only the first layer. I ran SiteSentry against {{TOTAL}} widely used websites ({{N}} responded) to see who also turns on the browser defences, modern TLS and email anti-spoofing that limit the damage when something goes wrong.</p>
+  <div class="byline">Research by <b>Victor Barbuta</b> · Data from {{TOOL}} · <a href="https://github.com/vicuvi1/SiteSentry/blob/main/research/results.json">raw results (JSON)</a></div>
+  <div class="tiles">{{TILES}}</div>
+</header>
+
+<section id="findings" class="wrap">
+  <h2>Key findings</h2>
+  <p class="sub">What stood out after scanning {{N}} homepages.</p>
+  <ul class="findings">{{FINDINGS}}</ul>
+</section>
+
+<section class="wrap" style="padding-top:8px">
+  <div class="chart">
+    <h3>Grade distribution</h3>
+    <p class="note">Number of sites per SiteSentry grade (n = {{N}}). Hover a bar for details.</p>
+    <div class="vchart-wrap"><div class="vchart" role="img" aria-label="Bar chart of sites per grade; exact values are in the data table below">{{GRADE_BARS}}</div></div>
+  </div>
+</section>
+
+<section class="wrap" style="padding-top:8px">
+  <div class="chart">
+    <h3>How common is each protection?</h3>
+    <p class="note">Share of sites where the protection is in place, sorted from most to least common. Hover a row to see what it means.</p>
+    <div role="img" aria-label="Bar chart of the share of sites with each protection; exact values are in the data table below">{{CONTROL_ROWS}}</div>
+    <div class="axis"><div></div><div><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></div>
+  </div>
+</section>
+
+<section id="data" class="wrap">
+  <h2>All results</h2>
+  <p class="sub">Click a column to sort. ✓ = in place, ✗ = missing, – = not applicable.</p>
+  <div class="tools">
+    <input id="filter" type="search" placeholder="Filter sites…" aria-label="Filter sites">
+    <span id="count" style="font-size:13.5px;color:var(--faint)"></span>
+  </div>
+  <div class="tablebox">
+    <table id="results">
+      <thead><tr><th>Site</th><th aria-sort="descending">Grade</th><th>Score</th>{{TABLE_HEAD}}</tr></thead>
+      <tbody>{{TABLE_ROWS}}</tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Methodology</h2>
+  <div class="method">
+    <div class="box">
+      <h3>How the scan worked</h3>
+      <ul>
+        <li>Each site's homepage was scanned once on {{DATE}} with <a href="https://github.com/vicuvi1/SiteSentry">SiteSentry</a>, following redirects to the final page.</li>
+        <li>Only passive checks were used: normal HTTP requests, TLS handshakes and public DNS lookups. No port scanning, no attack payloads.</li>
+        <li>Certificates were validated against Mozilla's CA bundle, so results don't depend on one computer's trust store.</li>
+        <li>Fully reproducible: <code>python research/scan_sites.py</code> then <code>python research/build_page.py</code>.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Limitations</h3>
+      <ul>
+        <li>A homepage is one page: logins and APIs may be configured differently.</li>
+        <li>CDNs and bot protection can serve scanners different headers than browsers.</li>
+        <li>A missing header isn't a breach. These are defence-in-depth layers, and some sites have good reasons for their choices.</li>
+        <li>The site list is a hand-picked set of popular sites across many sectors, not a strict traffic ranking.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="cta">
+    <h2>Check your own site</h2>
+    <p class="sub" style="margin:0 auto 18px;max-width:520px">SiteSentry is free and open source. It grades any site in seconds and generates the config that fixes what it finds.</p>
+    <a class="btn primary" href="https://github.com/vicuvi1/SiteSentry#quick-start">Get SiteSentry</a>
+    <a class="btn ghost" href="./">Project page</a>
+  </div>
+</section>
+
+<footer><div class="wrap">Research and SiteSentry made by <a href="https://github.com/vicuvi1"><b>Victor Barbuta</b></a> · MIT licensed</div></footer>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(() => {
+  // Hover tooltips for every chart mark
+  const tip = document.getElementById("tip");
+  document.querySelectorAll("[data-tip]").forEach(el => {
+    el.addEventListener("mousemove", e => {
+      tip.textContent = el.dataset.tip;
+      tip.style.opacity = 1;
+      const x = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 10);
+      tip.style.left = x + "px"; tip.style.top = (e.clientY + 16) + "px";
+    });
+    el.addEventListener("mouseleave", () => tip.style.opacity = 0);
+  });
+
+  // Sortable, filterable table
+  const table = document.getElementById("results"), body = table.tBodies[0];
+  const ths = [...table.tHead.rows[0].cells];
+  const val = (row, i) => {
+    const c = row.cells[i]; if (!c) return "";
+    if (c.dataset.sort) return +c.dataset.sort;
+    if (c.classList.contains("yes")) return 2;
+    if (c.classList.contains("no")) return 0;
+    if (c.classList.contains("na")) return 1;
+    return c.textContent.trim().toLowerCase();
+  };
+  ths.forEach((th, i) => th.addEventListener("click", () => {
+    const asc = th.getAttribute("aria-sort") === "descending";
+    ths.forEach(t => t.removeAttribute("aria-sort"));
+    th.setAttribute("aria-sort", asc ? "ascending" : "descending");
+    const rows = [...body.rows].sort((a, b) => {
+      const x = val(a, i), y = val(b, i);
+      return (x > y ? 1 : x < y ? -1 : 0) * (asc ? 1 : -1);
+    });
+    body.append(...rows);
+  }));
+  const filter = document.getElementById("filter"), count = document.getElementById("count");
+  const update = () => {
+    const q = filter.value.trim().toLowerCase(); let shown = 0;
+    [...body.rows].forEach(r => { const ok = r.cells[0].textContent.includes(q); r.hidden = !ok; shown += ok; });
+    count.textContent = `${shown} sites`;
+  };
+  filter.addEventListener("input", update); update();
+})();
+</script>
+</body>
+</html>

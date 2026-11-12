@@ -1,0 +1,7 @@
+name: SiteSentry CodeQL config
+
+# tests/ contains deliberately insecure servers (e.g. one that reflects the Origin
+# header) used to prove the scanner detects those flaws, so it is not production code.
+paths-ignore:
+  - tests
+  - research

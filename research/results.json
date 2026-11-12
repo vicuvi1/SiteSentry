@@ -1,0 +1,7535 @@
+{
+ "tool": "SiteSentry 1.2.0",
+ "scanned_at": "2026-11-12",
+ "duration_seconds": 51.2,
+ "sites": [
+  {
+   "site": "google.com",
+   "final_url": "https://www.google.com/",
+   "grade": "D",
+   "score": 47,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: gws"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "youtube.com",
+   "final_url": "https://www.youtube.com/",
+   "grade": "A",
+   "score": 85,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: ESF"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:google.com mx -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:mailauth-reports@google.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "facebook.com",
+   "final_url": "https://www.facebook.com/",
+   "grade": "B",
+   "score": 70,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_CHACHA20_POLY1305_SHA256"
+    },
+    "tls.expiry": {
+     "status": "fail"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 redirect=_spf.facebook.com"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:a@dmarc.facebookmail.com; pct=100"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "instagram.com",
+   "error": "Could not reach instagram.com: TimeoutError: timed out"
+  },
+  {
+   "site": "x.com",
+   "final_url": "https://x.com/",
+   "grade": "A",
+   "score": 93,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "pass"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare envoy"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "warn"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:199.16.156.0/22 ip4:199.59.148.0/22 include:_spf.google.com include:_spf.salesforce.com include:_oerp.x.com include:phx1.rp.oracleemaildelivery.com i"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:caf935f12c8645b2921b0749d1fcd49e@dmarc-reports.cloudflare.net"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "wikipedia.org",
+   "final_url": "https://www.wikipedia.org/",
+   "grade": "B",
+   "score": 71,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: mw-web.eqiad.main-784b855b47-5qtlb"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_cidrs.wikimedia.org ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-rua@wikimedia.org;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "amazon.com",
+   "final_url": "https://www.amazon.com/",
+   "grade": "B",
+   "score": 83,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Server"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf1.amazon.com include:spf2.amazon.com include:amazonses.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=quarantine;pct=100;rua=mailto:report@dmarc.amazon.com;ruf=mailto:report@dmarc.amazon.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "reddit.com",
+   "final_url": "https://www.reddit.com/",
+   "grade": "A",
+   "score": 90,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "pass"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: snooserv"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf0.reddit.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; ruf=mailto:reddit@us.cp-dmarc.com; rua=mailto:reddit@us.cp-dmarc.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "linkedin.com",
+   "final_url": "https://www.linkedin.com/",
+   "grade": "A+",
+   "score": 98,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:199.101.162.0/25 ip4:108.174.3.0/24 ip4:108.174.6.0/24 ip4:108.174.0.0/24 ip6:2620:109:c00d:104::/64 ip6:2620:109:c006:104::/64 ip6:2620:109:c003:104"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:yfy3q-9359@rua.dmarc.emailanalyst.com; ruf=mailto:d@ruf.agari.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "netflix.com",
+   "final_url": "https://www.netflix.com/md-en/",
+   "grade": "C",
+   "score": 66,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: envoy"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf_ipv4.netflix.com include:_spf.google.com include:amazonses.com include:servers.mcsv.net include:_spf.salesforce.com include:_spf.createsend."
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:netflix@rua.netcraft.com,mailto:dmarcreports@netflix.com,mailto:dmarc_agg@dmarc.250ok.net;ruf=mailto:netflix@ruf.netcraft.c"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "microsoft.com",
+   "final_url": "https://www.microsoft.com/",
+   "grade": "B",
+   "score": 75,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiNetStorage"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf-a.microsoft.com include:_spf-b.microsoft.com include:_spf-ssg-a.msft.net include:_spf1-meo.microsoft.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; rua=mailto:itex-rua@microsoft.com; ruf=mailto:itex-ruf@microsoft.com; fo=1"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "apple.com",
+   "final_url": "https://www.apple.com/",
+   "grade": "B",
+   "score": 81,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "warn"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Apple"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.apple.com include:_spf-txn.apple.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; sp=reject; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "yahoo.com",
+   "final_url": "https://www.yahoo.com/",
+   "grade": "A",
+   "score": 91,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "warn"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: ATS"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 redirect=_spf.mail.yahoo.com"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; rua=mailto:d@rua.agari.com; ruf=mailto:d@ruf.agari.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "bing.com",
+   "final_url": "https://www.bing.com:443/?toWww=1&redig=72E342A994224DF1907FA75DA402F914",
+   "grade": "B",
+   "score": 72,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf.protection.outlook.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; rua=mailto:BingEmailDMARC@microsoft.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "whatsapp.com",
+   "final_url": "https://www.whatsapp.com/",
+   "grade": "B",
+   "score": 72,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "pass"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: proxygen-bolt"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_CHACHA20_POLY1305_SHA256"
+    },
+    "tls.expiry": {
+     "status": "fail"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.fb.com include:facebookmail.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:a@dmarc.facebookmail.com; pct=100"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "tiktok.com",
+   "final_url": "https://tiktok.com/",
+   "grade": "C",
+   "score": 55,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "warn"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:mail.zendesk.com include:spf.bytedance.com include:mail.stibee.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100;"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "openai.com",
+   "final_url": "https://openai.com/",
+   "grade": "A",
+   "score": 92,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:spf.protection.outlook.com include:8050860.spf04.hubspotemail.net include:mktomail.com include:spf_c.oraclecloud.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:tdfyvl0n@ag.dmarcian.com; ruf=mailto:tdfyvl0n@fr.dmarcian.com; fo=1; aspf=r"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "github.com",
+   "final_url": "https://github.com/",
+   "grade": "A+",
+   "score": 95,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "pass"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: github.com"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:192.30.252.0/22 include:spf.protection.outlook.com include:_netblocks.google.com include:_netblocks2.google.com include:mail.zendesk.com include:_spf"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; sp=reject; pct=100; rua=mailto:dmarc@github.com; ruf=mailto:dmarc@github.com; fo=1"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "stackoverflow.com",
+   "final_url": "https://stackoverflow.com/",
+   "grade": "A",
+   "score": 90,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:52.38.191.241 include:_spf.google.com include:mailgun.org include:sendgrid.net include:mail.zendesk.com include:spf.tipalti.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; rua=mailto:dmarc-aggregates@stackoverflow.com; ruf=mailto:dmarc-forensics@stackoverflow.com; fo=1"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "zoom.us",
+   "final_url": "https://www.zoom.com/",
+   "grade": "B",
+   "score": 75,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com include:_spf.google.com include:amazonses.com ip4:52.38.191.241 include:servers.mcsv.net include:_spf.salesf"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;ri=3600;rua=mailto:sesbounce@zoom.us,mailto:dmarc_rua@emaildefense.proofpoint.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "office.com",
+   "final_url": "https://m365.cloud.microsoft/",
+   "grade": "C",
+   "score": 59,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "fail",
+     "evidence": ""
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; pct=100; rua=mailto:rua@dmarc.microsoft; ruf=mailto:ruf@dmarc.microsoft; fo=1"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "twitch.tv",
+   "final_url": "https://www.twitch.tv/",
+   "grade": "B",
+   "score": 74,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Varnish"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:amazonses.com include:_spf.twitch.tv include:aspmx.pardot.com a mx -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; adkim=s; aspf=s; fo=1; ri=3600; rua=mailto:report@dmarc.amazon.com; ruf=mailto:report@dmarc.amazon.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "pinterest.com",
+   "final_url": "https://www.pinterest.com/",
+   "grade": "A",
+   "score": 85,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "pass"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 redirect=_spf.pinterest.com"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; pct=100; rua=mailto:o4khm-8732@rua.dmarc.emailanalyst.com; ruf=mailto:o4khm-8732@ruf.dmarc.emailanalyst.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "ebay.com",
+   "final_url": "https://ebay.com/",
+   "grade": "C",
+   "score": 67,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:c._spf.ebay.com include:p._spf.ebay.com include:p2._spf.ebay.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:ebay@rua.agari.com; ruf=mailto:ebay@ruf.agari.com; fo=1; rf=afrf; pct=100"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "paypal.com",
+   "final_url": "https://www.paypal.com/md/home",
+   "grade": "B",
+   "score": 71,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:pp._spf.paypal.com include:3ph1._spf.paypal.com include:3ph2._spf.paypal.com include:3ph3._spf.paypal.com include:3ph4._spf.paypal.com include:se"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:d@rua.agari.com,mailto:dmarc_agg@vali.email; ruf=mailto:d@ruf.agari.com,mailto:MTc4Mzcw@ruf.vali.email"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "adobe.com",
+   "final_url": "https://www.adobe.com/",
+   "grade": "B",
+   "score": 73,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 exists:%{i}._i.%{d}._d.espf.agari.com include:%{d}.55.spf-protect.agari.com include:_spf.intacct.com IP4:172.193.27.96 -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:adobe@rua.agari.com; ruf=mailto:adobe@ruf.agari.com; fo=1"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "dropbox.com",
+   "final_url": "https://www.dropbox.com/",
+   "grade": "B",
+   "score": 83,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: envoy"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:45.58.64.0/20 ip4:185.45.8.0/22 ip4:162.125.0.0/16 ip4:199.47.216.0/22 ip4:108.160.160.0/20 ip4:205.189.0.0/24 ip4:160.34.15.16/28 ip4:52.5.134.202/3"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;pct=100;rua=mailto:c7xrs-8253@rua.dmarc.emailanalyst.com,mailto:dmarc@dropbox.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "spotify.com",
+   "final_url": "https://open.spotify.com/",
+   "grade": "A",
+   "score": 88,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: envoy"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:80.76.146.172 ip4:80.76.146.173 include:_spf.google.com include:servers.mcsv.net include:_spf.salesforce.com include:_spf.netigate.se include:2189483"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; pct=100; fo=1; rf=afrf; rua=mailto:6jxge2ly@ag.eu.dmarcian.com;"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "cloudflare.com",
+   "final_url": "https://www.cloudflare.com/",
+   "grade": "B",
+   "score": 78,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:199.15.212.0/22 ip4:173.245.48.0/20 include:_spf.google.com include:spf1.mcsv.net include:spf.mandrillapp.com include:mail.zendesk.com include:stspg-"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; adkim=r; aspf=r; pct=100; rua=mailto:a1c47f179bc04efd8ee4dcd4d85dfc65@dmarc-reports.cloudflare.net,mailto:rua@cloudflare.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "wordpress.com",
+   "final_url": "https://wordpress.com/",
+   "grade": "C",
+   "score": 63,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.automattic.com include:servers.mcsv.net include:_spf-wwd.automattic.com include:mail.zendesk.com include:sendgrid.net include:145630858.spf0"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-reports@automattic.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "tumblr.com",
+   "final_url": "https://www.tumblr.com/",
+   "grade": "A",
+   "score": 92,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:_spf.automattic.com include:sendgrid.net include:mail.zendesk.com include:21055259.spf05.hubspotemail.net -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; rua=mailto:dmarc-reports@automattic.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "quora.com",
+   "final_url": "https://quora.com/",
+   "grade": "A",
+   "score": 90,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf1.quora.com include:_spf2.quora.com include:_spf.google.com include:mail.zendesk.com include:mailsenders.netsuite.com include:mktomail.com in"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject;rua=mailto:dmarc+rua@quora.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "medium.com",
+   "final_url": "https://medium.com/",
+   "grade": "A+",
+   "score": 98,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:amazonses.com include:_spf.google.com include:mail.zendesk.com include:sendgrid.net include:spf.tipalti.com include:_spf.psm.knowbe4.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; pct=100; fo=1; ri=3600; rua=mailto:dmarc.rua@medium.com,mailto:dmarc_agg@vali.email; ruf=mailto:dmarc.rua@medium.com,mailto:ruf@d"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "imdb.com",
+   "final_url": "https://www.imdb.com/",
+   "grade": "B",
+   "score": 75,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Server"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:amazon.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=quarantine;pct=100;rua=mailto:report@dmarc.amazon.com;ruf=mailto:report@dmarc.amazon.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "cnn.com",
+   "final_url": "https://www.cnn.com/",
+   "grade": "B",
+   "score": 82,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:cnn.com._nspf.vali.email include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email include:mail.zendesk.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email; ruf=mailto:Njk3@ruf.vali.email"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "bbc.com",
+   "final_url": "https://www.bbc.com/",
+   "grade": "A",
+   "score": 87,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "warn"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Varnish"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:212.58.224.0/19 ip4:132.185.0.0/16 +include:spf.messagelabs.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;aspf=s;adkim=s;pct=100;fo=0;ri=86400; rua=mailto:dmarc_agg@vali.email;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "nytimes.com",
+   "final_url": "https://www.nytimes.com/",
+   "grade": "B",
+   "score": 80,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Varnish"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:nytimes.com._nspf.vali.email include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email include:_spf.e.sparkpost.com include:amazonses.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email,mailto:dmarc.report@nytimes.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "theguardian.com",
+   "final_url": "https://www.theguardian.com/europe",
+   "grade": "A",
+   "score": 92,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "warn"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Varnish"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:spf_c.oraclecloud.com include:_spf.salesforce.com include:_spf1.theguardian.com ip4:199.255.192.0/22 ip4:199.127.232.0/22"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;rua=mailto:dmarcreporting@theguardian.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "washingtonpost.com",
+   "final_url": "https://washingtonpost.com/",
+   "grade": "C",
+   "score": 65,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:198.72.14.0/23 ip4:192.72.255.0/24 ip4:54.156.98.51 ip4:54.210.51.17 include:spf.protection.outlook.com include:madgexjb.com include:spf-001a3c01.pph"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; fo=1; rua=mailto:dmarc_rua@washingtonpost.com,mailto:mylza-8368@rua.dmarc.emailanalyst.com; ruf=mailto:dmarc_ruf@washingtonpost.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "forbes.com",
+   "final_url": "https://forbes.com/",
+   "grade": "B",
+   "score": 70,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: DataDome"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "fail"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 redirect=b45gkw7f._spf._d.mim.ec"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; rua=mailto:dmarcreports@forbes.com,mailto:69955ab810e8779@rep.dmarcanalyzer.com; ruf=mailto:69955ab810e8779@for.dmarcanalyzer.com; "
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "bloomberg.com",
+   "final_url": "https://www.bloomberg.com/",
+   "grade": "B",
+   "score": 71,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "fail",
+     "evidence": "Server: awselb/2.0"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:69.184.0.0/13 ip4:199.172.169.0/24 ip4:208.22.56.0/24 ip4:69.191.241.124 -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; adkim=r; aspf=r; ruf=mailto:dmarc-ruf@dmarc-bloomberg.com; fo=1; rua=mailto:dmarc-rua@dmarc-bloomberg.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "reuters.com",
+   "final_url": "https://www.reuters.com/",
+   "grade": "C",
+   "score": 67,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: BigIP"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "fail"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "espn.com",
+   "final_url": "https://www.espn.com/",
+   "grade": "C",
+   "score": 57,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Apache"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "warn"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:servers.mcsv.net mx ip4:74.123.203.125 ip4:74.123.200.120 ip4:74.123.200.35 ip4:74.123.200.36 ip4:74.123.203.98 ip4:74.123.200.222 ip4:192.234.2."
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1;p=none;fo=1;rua=mailto:Corp.Dmarc_RUA@disney.com;ruf=mailto:Corp.Dmarc_RUF@disney.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "weather.com",
+   "final_url": "https://weather.com/",
+   "grade": "C",
+   "score": 63,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:96.8.80.136 ip4:96.8.80.135 ip4:96.8.82.135 ip4:96.8.84.135 ip4:96.8.88.240 ip4:208.106.251.89 ip4:65.212.71.11 ip4:96.8.93.78 ip4:96.8.93.79 ip4:96."
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; rua=mailto:vIs5Sxx8kN@dmarc.inboxmonster.com, mailto:dmarc@weather.com; fo=1;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "booking.com",
+   "final_url": "https://www.booking.com/",
+   "grade": "B",
+   "score": 75,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: istio-envoy"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc_rua@emaildefense.proofpoint.com,mailto:booking@dmarc.postmastery.eu; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "airbnb.com",
+   "final_url": "https://www.airbnb.com/",
+   "grade": "B",
+   "score": 80,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: envoy"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf1.airbnb.com ip6:2c0f:fb50:4864::/56 ip6:2a00:1450:4864::/56 ip6:2800:3f0:4864::/56 ip6:2607:f8b0:4864::/56 ip6:2404:6800:4864::/56 ip6:2001:4"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;sp=reject;pct=100;ruf=mailto:dmarc.forensic@airbnb.com;rua=mailto:dmarc.aggregate@airbnb.com;aspf=r;adkim=r;fo=1;ri=3600"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "tripadvisor.com",
+   "final_url": "https://www.tripadvisor.com/",
+   "grade": "D",
+   "score": 48,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: DataDome"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "fail"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.tripadvisor.com include:mail.zendesk.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-rua@tripadvisor.com; ruf=mailto:dmarc-ruf@tripadvisor.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "expedia.com",
+   "final_url": "https://www.expedia.com/",
+   "grade": "C",
+   "score": 67,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.expedia.com a:b.spf.service-now.com include:_spf.qemailserver.com include:spf.clearslide.com include:mail.zendesk.com include:_spf.salesforc"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:expedia@rua.netcraft.com,mailto:dmarc_agg@dmarc.250ok.net ; ruf=mailto:expedia@ruf.netcraft.com,mailto:dmarc_fr@dmarc.250ok"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "uber.com",
+   "final_url": "https://www.uber.com/ro/en/",
+   "grade": "A",
+   "score": 88,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: ufe"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:uber.com._nspf.vali.email include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email include:mailgun.org ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; rua=mailto:dmarc_agg@vali.email"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "walmart.com",
+   "final_url": "https://www.walmart.com/",
+   "grade": "B",
+   "score": 80,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com include:_netblocks.walmart.com include:_vspf1.walmart.com include:_vspf2.walmart.com include:_vspf3.walmart."
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "target.com",
+   "final_url": "https://www.target.com/",
+   "grade": "B",
+   "score": 81,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "warn"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Varnish"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com include:aspmx.pardot.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@target.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "bestbuy.com",
+   "final_url": "https://bestbuy.com/",
+   "grade": "B",
+   "score": 75,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:198.22.123.0/24 ip4:168.94.230.0/24 ip4:198.22.122.4 ip4:198.22.122.6 include:spf.protection.outlook.com include:spf-002a6b01.pphosted.com include:sp"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "etsy.com",
+   "final_url": "https://www.etsy.com/",
+   "grade": "D",
+   "score": 48,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Varnish"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "fail"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:66.3.159.0/24 ip4:192.147.0.0/24 ip4:173.46.67.72/29 ip4:192.147.1.0/24 ip4:38.106.64.0/24 ip4:38.76.1.0/24 ip4:38.76.2.0/24 ip4:162.220.28.32/27 ip4"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:dmarc@etsy.com; ruf=mailto:dmarc@etsy.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "aliexpress.com",
+   "final_url": "https://aliexpress.com/",
+   "grade": "F",
+   "score": 36,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Tengine/AServer-Ingress"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "fail"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-ECDSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "warn"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf1.service.alibaba.com include:spf2.service.alibaba.com include:spf2.ocm.aliyun.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-ap@service.alibaba.com; ruf=mailto:dmarc-ap@service.alibaba.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "alibaba.com",
+   "final_url": "https://www.alibaba.com/",
+   "grade": "C",
+   "score": 66,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Tengine"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf1.alibaba.mail.aliyun.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-ap@service.alibaba.com; ruf=mailto:dmarc-ap@service.alibaba.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "baidu.com",
+   "final_url": "https://www.baidu.com/",
+   "grade": "D",
+   "score": 50,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "warn"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "fail",
+     "evidence": "Server: BWS/1.1"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf1.baidu.com include:spf2.baidu.com include:spf3.baidu.com include:spf4.baidu.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; rua=mailto:baidu-spammail@baidu.com; ruf=mailto:baidu-spammail@baidu.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "yandex.ru",
+   "final_url": "https://yandex.md",
+   "grade": "B",
+   "score": 70,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 redirect=_spf.yandex.ru"
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1; p=none; fo=1; rua=mailto:dmarc_agg@auth.returnpath.net,mailto:dmarc-rua@yandex.ru; ruf=mailto:dmarc_afrf@auth.returnpath.net"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "vk.com",
+   "final_url": "https://m.vk.com/",
+   "grade": "B",
+   "score": 74,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: kittenx"
+    },
+    "disclosure.tech": {
+     "status": "fail"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:93.186.224.0/20 ip4:87.240.128.0/18 ip4:95.142.192.0/21 mx include:_spf.google.com include:_spf.mail.ru ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:d@rua.agari.com,mailto:dmarc@vk.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "naver.com",
+   "final_url": "https://www.naver.com/",
+   "grade": "B",
+   "score": 70,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "warn"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nfront"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "warn"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:111.91.135.0/27 ip4:125.209.208.0/20 ip4:125.209.224.0/19 ip4:210.89.163.112 ip4:210.89.173.104/29 ip4:114.111.35.0/24 ip4:61.247.196.0/24 ip4:61.247"
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1; p=none; rua=mailto:dmarc_reports@worksmobile.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "samsung.com",
+   "final_url": "https://www.samsung.com/",
+   "grade": "D",
+   "score": 45,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.samsung.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1; p=none; rua=mailto:postmaster@samsung.com; ruf=mailto:postmaster@samsung.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "sony.com",
+   "final_url": "https://www.sony.com:443/",
+   "grade": "C",
+   "score": 62,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "fail",
+     "evidence": "Server: awselb/2.0"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:amazonses.com include:spf.protection.outlook.com include:spfa.sony.com ip4:121.100.43.221 ip4:185.136.188.108 ip4:185.136.189.108 ip4:121.100.43."
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1; p=none; rua=mailto:a03yqpkgpq@rua.powerdmarc.com; ruf=mailto:a03yqpkgpq@ruf.powerdmarc.com; fo=1;"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "nvidia.com",
+   "final_url": "https://www.nvidia.com/location-selector/",
+   "grade": "B",
+   "score": 72,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email; fo=1; ri=3600"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "intel.com",
+   "final_url": "https://www.intel.com/",
+   "grade": "A",
+   "score": 88,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.intel.com include:spf.protection.outlook.com -all"
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1;p=none;sp=none;fo=1;rua=mailto:dmarc.notification@intel.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "oracle.com",
+   "final_url": "https://www.oracle.com/",
+   "grade": "B",
+   "score": 80,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf_s.oracle.com include:spf_r.oracle.com include:spf_c.oraclecloud.com include:spf_x.oracle.com include:spf_z.oracle.com include:stspg-customer."
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;rua=mailto:dmarc_rua@emaildefense.proofpoint.com;ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com;fo=1"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "ibm.com",
+   "final_url": "https://www.ibm.com/",
+   "grade": "C",
+   "score": 67,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=none; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "salesforce.com",
+   "final_url": "https://www.salesforce.com/",
+   "grade": "C",
+   "score": 61,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "warn"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:_spf.salesforce.com exists:%{i}._spf.corp.salesforce.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;fo=1:d:s;pct=100;rua=mailto:dmarc_agg@vali.email,mailto:0e5a5c34@inbox.ondmarc.com;ruf=mailto:0e5a5c34@inbox.ondmarc.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "shopify.com",
+   "final_url": "https://www.shopify.com/",
+   "grade": "B",
+   "score": 78,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:mail.zendesk.com include:sendgrid.net ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; fo=1; rua=mailto:dmarc-aggregate@shopify.com;ruf=mailto:dmarc-reports@shopify.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "slack.com",
+   "final_url": "https://slack.com/",
+   "grade": "B",
+   "score": 84,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Apache"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.qualtrics.com include:mail.zendesk.com include:_spfextra.slack.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1;p=reject;fo=1:d:s;pct=100;rua=mailto:dmarc_agg@vali.email,mailto:0e5a5c34@inbox.ondmarc.com;ruf=mailto:0e5a5c34@inbox.ondmarc.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "notion.so",
+   "final_url": "https://www.notion.com/",
+   "grade": "B",
+   "score": 77,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "fail"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; pct=100; rua=mailto:re+1b3a27dd30bc@inbound.dmarcdigests.com;"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "atlassian.com",
+   "final_url": "https://www.atlassian.com/",
+   "grade": "A",
+   "score": 86,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: CloudFront"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:54.85.255.245 ip4:54.241.191.3 include:_spf.google.com include:cust-spf.exacttarget.com include:spf-001d9801.pphosted.com include:amazonses.com inclu"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; pct=100; adkim=r; aspf=r; rua=mailto:dmarc_rua@emaildefense.proofpoint.com,mailto:dmarc-rua@abuse.atlassian.com; ruf=mailto:dmarc_ruf@"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "gitlab.com",
+   "final_url": "https://about.gitlab.com/",
+   "grade": "B",
+   "score": 72,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "fail"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; rua=mailto:dmarc_agg@vali.email;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "docker.com",
+   "final_url": "https://www.docker.com/",
+   "grade": "A",
+   "score": 92,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Pantheon"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:spf.tipalti.com include:_spf.salesforce.com include:mktomail.com include:mail.zendesk.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; pct=100; rua=mailto:q1xwnepx@ag.dmarcian.com; ruf=mailto:q1xwnepx@fr.dmarcian.com;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "mozilla.org",
+   "final_url": "https://www.mozilla.org/",
+   "grade": "A+",
+   "score": 95,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email include:_spf.mozilla.com include:_spf.google.com include:spf.fundraiseup.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; adkim=r; aspf=r; rua=mailto:dmarc_agg@vali.email,mailto:dmarc@mozilla.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "python.org",
+   "final_url": "https://www.python.org/",
+   "grade": "B",
+   "score": 81,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Varnish"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 mx ip4:188.166.95.178/32 ip6:2a03:b0c0:2:d0::71:1 include:stspg-customer.com include:_spf.google.com include:mailgun.org ~all"
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1; p=none; pct=100; rua=mailto:re+shb8ybr70a3@dmarc.postmarkapp.com; sp=none; aspf=r;"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "npmjs.com",
+   "final_url": "https://www.npmjs.com/",
+   "grade": "A+",
+   "score": 98,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:stspg-customer.com include:mail.zendesk.com include:_spf.google.com include:5326678.spf10.hubspotemail.net include:servers.mcsv.net include:amazo"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine;  pct=5; rua=mailto:dmarc@github.com,mailto:d@rua.agari.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "duckduckgo.com",
+   "final_url": "https://duckduckgo.com/",
+   "grade": "A+",
+   "score": 98,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:mail.duckduckgo.com include:spf.mailer.duckduckgo.com include:spf.protection.outlook.com include:duck.com include:mail.zendesk.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; rua=mailto:n1um42s6@ag.dmarcian.com"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "proton.me",
+   "final_url": "https://proton.me/",
+   "grade": "A",
+   "score": 93,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": ""
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.protonmail.ch ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; fo=1; aspf=s; adkim=s;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "telegram.org",
+   "final_url": "https://telegram.org/",
+   "grade": "B",
+   "score": 80,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "fail",
+     "evidence": "Server: nginx/1.30.1"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:95.161.64.0/28 ip4:95.161.64.16/30 ip4:149.154.160.0/20 ip4:149.154.162.125/32 ip4:149.154.162.247/32 -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; aspf=r; sp=reject; rua=mailto:dmarc@telegram.org"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "discord.com",
+   "final_url": "https://discord.com/",
+   "grade": "A+",
+   "score": 97,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "pass"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:mail.zendesk.com include:sendgrid.net include:3885857.spf06.hubspotemail.net ip4:198.2.180.60 -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:b0450def5eb44238a7059f24059a4585@dmarc-reports.cloudflare.net;"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "signal.org",
+   "final_url": "https://signal.org/",
+   "grade": "B",
+   "score": 73,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; pct=100; rua=mailto:dmarc@signal.org"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "steampowered.com",
+   "final_url": "https://store.steampowered.com/",
+   "grade": "A",
+   "score": 87,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:208.64.202.32/27 ip6:2602:801:f000:1234::/64 ip4:208.64.202.128/27 ip6:2602:801:f00c:1234::/64 ip4:208.64.202.192/27 ip6:2602:801:f00f:1234::/64 -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; pct=100; rua=mailto:e8b9a9244a5c591@rep.dmarcanalyzer.com; ruf=mailto:e8b9a9244a5c591@for.dmarcanalyzer.com; fo="
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "epicgames.com",
+   "final_url": "https://www.epicgames.com:443/",
+   "grade": "B",
+   "score": 81,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "fail",
+     "evidence": "Server: awselb/2.0"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc_agg@vali.email; ruf=mailto:epic-games@ruf-reporting.vali.email"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "roblox.com",
+   "final_url": "https://www.roblox.com/",
+   "grade": "B",
+   "score": 77,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: public-gateway"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com ip4:50.232.73.154/32 ip4:64.124.125.0/26 ip4:208.185.173.0/24 ip4:208.185.116.0/25 ip4:64.125.149.0/24 ip4:8.42.96.0/24 ip4:216.2"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc_agg@vali.email,mailto:dmarc_fb@roblox.com; ruf=mailto:dmarc_fr@roblox.com; fo=1; rf=afrf"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "nike.com",
+   "final_url": "https://www.nike.com/",
+   "grade": "C",
+   "score": 61,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "warn"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "adidas.com",
+   "final_url": "https://www.adidas.com/",
+   "grade": "C",
+   "score": 59,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: BigIP"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf1.adidas.com include:spf2.adidas.com include:spf.protection.outlook.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com;fo=1"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "mcdonalds.com",
+   "final_url": "https://www.mcdonalds.com/",
+   "grade": "C",
+   "score": 65,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Apache"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf.mailjet.com include:_spf.q4press.com include:amazonses.com include:_spf.tivian.com include:spf.protection.outlook.com include:spf.cashedge.co"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; rua=mailto:dmarc_rua@emaildefense.proofpoint.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com;fo=1"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "coca-cola.com",
+   "final_url": "https://www.coca-cola.com/",
+   "grade": "B",
+   "score": 83,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "fail",
+     "evidence": "Server: Apache/2.4.67 ()"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{ir}.%{v}.%{d}.spf.has.pphosted.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:dmarc_rua@emaildefense.proofpoint.com,mailto:dmarcreports@coca-cola.com; ruf=mailto:dmarc_ruf@emaildefense.proofpoint.com,m"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "nasa.gov",
+   "final_url": "https://www.nasa.gov/",
+   "grade": "B",
+   "score": 83,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf-4a.nasa.gov include:_spf-4b.nasa.gov include:_spf-4c.nasa.gov include:_spf-4d.nasa.gov include:_spf-4g.nasa.gov include:_spf-4m.nasa.gov inc"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; fo=1; rua=mailto:dmarcmail@mail.nasa.gov,mailto:reports@dmarc.cyber.dhs.gov"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "whitehouse.gov",
+   "final_url": "https://www.whitehouse.gov/",
+   "grade": "A+",
+   "score": 95,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf.mail.dmz.pitc.gov include:spf.protection.outlook.com include:spf.mandrillapp.com ip4:214.3.115.10/32 ip4:214.3.115.12/32 ip4:214.3.115.14/32 "
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:b1fabe8b7f3f41a181ecd1253a794edf@dmarc-reports.cloudflare.net,mailto:reports@dmarc.cyber.dhs.gov"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "europa.eu",
+   "final_url": "https://european-union.europa.eu/select-language?destination=/node/1",
+   "grade": "B",
+   "score": 76,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Europa"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 -all"
+    },
+    "dns.dmarc": {
+     "status": "fail",
+     "evidence": ""
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "un.org",
+   "final_url": "https://www.un.org/",
+   "grade": "A+",
+   "score": 95,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: CloudFront"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES256-SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:spf.protection.outlook.com include:_netblocks.un.org include:_netblocks2.un.org include:_spf.google.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; rua=mailto:dmarc@un.org; ruf=mailto:dmarc@un.org; fo=0:1:d:s; adkim=r; aspf=r"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "who.int",
+   "final_url": "https://www.who.int/",
+   "grade": "A",
+   "score": 93,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "warn"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "info"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_256_GCM_SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:158.232.12.0/24 include:spf.protection.outlook.com include:_spfincludes.who.int -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; pct=100; fo=1; ri=3600; rua=mailto:422b6d07@inbox.ondmarc.com,mailto:dmarc-rua@who.int;"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "harvard.edu",
+   "final_url": "https://www.harvard.edu/",
+   "grade": "C",
+   "score": 67,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: nginx"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:%{i}._ip.%{h}._ehlo.%{d}._spf.vali.email include:spf.mailjet.com ~all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; sp=none; pct=100; adkim=r; aspf=r; rua=mailto:dmarc_agg@vali.email"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "mit.edu",
+   "final_url": "https://mit.edu/",
+   "grade": "C",
+   "score": 57,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: AkamaiGHost"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "fail"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES256-GCM-SHA384"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_s00430413.autospf.email -all"
+    },
+    "dns.dmarc": {
+     "status": "warn",
+     "evidence": "v=DMARC1; p=none; rua=mailto:dmarcreports@mit.edu"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "stanford.edu",
+   "final_url": "https://www.stanford.edu/",
+   "grade": "A",
+   "score": 93,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: Apache"
+    },
+    "disclosure.tech": {
+     "status": "fail"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "warn",
+     "evidence": "v=spf1 ip4:171.67.219.64/27 ip4:171.67.224.0/28 ip4:171.67.43.137 ip4:171.67.43.138 ip4:171.67.43.139 ip4:171.67.43.140 ip4:171.67.43.141  include:_spf.google.c"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; rua=mailto:65cb29d44bd92@ag.dmarcly.com; ruf=mailto:65cb29d44bd92@fo.dmarcly.com;"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "ox.ac.uk",
+   "final_url": "https://www.ox.ac.uk/",
+   "grade": "A+",
+   "score": 96,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "warn"
+    },
+    "headers.csp": {
+     "status": "warn"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: cloudflare"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 redirect=_spf.ox.ac.uk"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=quarantine; ruf=mailto:dmarc-ruf@it.ox.ac.uk"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "coursera.org",
+   "final_url": "https://www.coursera.org/",
+   "grade": "B",
+   "score": 71,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: envoy"
+    },
+    "disclosure.tech": {
+     "status": "fail"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "warn"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:sendgrid.net ip4:24.6.102.21 ip4:50.16.53.44 include:_spf.google.com include:amazonses.com include:spf.mtasv.net include:_spf.salesforce.com -all"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-reports@coursera.org; ruf=mailto:dmarc-reports@coursera.org; fo=0; pct=100"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "khanacademy.org",
+   "final_url": "https://www.khanacademy.org/",
+   "grade": "C",
+   "score": 57,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: CloudFront"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "fail"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "warn"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf.google.com include:sendgrid.net include:aspmx.sailthru.com include:mail.zendesk.com exists:%{i}._spf.mta.salesforce.com include:mg-spf.green"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-reports@khanacademy.org; ruf=mailto:dmarc-reports@khanacademy.org"
+    },
+    "dns.caa": {
+     "status": "pass"
+    }
+   }
+  },
+  {
+   "site": "duolingo.com",
+   "final_url": "https://www.duolingo.com/",
+   "grade": "C",
+   "score": 56,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "fail"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "fail"
+    },
+    "headers.nosniff": {
+     "status": "fail"
+    },
+    "headers.referrer": {
+     "status": "fail"
+    },
+    "headers.permissions": {
+     "status": "fail"
+    },
+    "disclosure.server": {
+     "status": "fail",
+     "evidence": "Server: nginx/1.26.3"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.none": {
+     "status": "info"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.2, cipher ECDHE-RSA-AES128-GCM-SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "fail"
+    },
+    "misc.securitytxt": {
+     "status": "fail"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 ip4:100.25.59.11 ip4:205.201.128.0/20 ip4:198.2.128.0/18 ip4:148.105.8.0/21 ip4:52.73.203.75 ip4:52.70.130.33 include:amazonses.com include:_spf.google.c"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; sp=reject; fo=1; rua=mailto:re+lhqmqj57zra@DMARC.postmarkapp.com,mailto:re+xu5r3a1wrlo@inbound.dmarcdigests.com,mailto:dmarcreports@duolingo"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  },
+  {
+   "site": "canva.com",
+   "final_url": "https://www.canva.com/",
+   "grade": "A",
+   "score": 92,
+   "checks": {
+    "transport.https": {
+     "status": "pass"
+    },
+    "headers.hsts": {
+     "status": "pass"
+    },
+    "headers.csp": {
+     "status": "fail"
+    },
+    "headers.clickjacking": {
+     "status": "pass"
+    },
+    "headers.nosniff": {
+     "status": "pass"
+    },
+    "headers.referrer": {
+     "status": "pass"
+    },
+    "headers.permissions": {
+     "status": "pass"
+    },
+    "disclosure.server": {
+     "status": "pass",
+     "evidence": "Server: CloudFront"
+    },
+    "disclosure.tech": {
+     "status": "pass"
+    },
+    "cookies.secure": {
+     "status": "pass"
+    },
+    "cookies.httponly": {
+     "status": "pass"
+    },
+    "cookies.samesite": {
+     "status": "pass"
+    },
+    "content.mixed": {
+     "status": "pass"
+    },
+    "cors.origin": {
+     "status": "pass"
+    },
+    "transport.redirect": {
+     "status": "pass"
+    },
+    "tls.version": {
+     "status": "pass",
+     "evidence": "TLSv1.3, cipher TLS_AES_128_GCM_SHA256"
+    },
+    "tls.expiry": {
+     "status": "pass"
+    },
+    "tls.legacy": {
+     "status": "pass"
+    },
+    "misc.securitytxt": {
+     "status": "pass"
+    },
+    "dns.spf": {
+     "status": "pass",
+     "evidence": "v=spf1 include:_spf1.canva.com include:_spf2.canva.com include:_spf3.canva.com include:_spf4.canva.com include:_spf5.canva.com include:_spf6.canva.com include:_"
+    },
+    "dns.dmarc": {
+     "status": "pass",
+     "evidence": "v=DMARC1; p=reject; rua=mailto:dmarc-reports@canva.com; ruf=mailto:dmarc-reports+forensics@canva.com; fo=1"
+    },
+    "dns.caa": {
+     "status": "fail"
+    }
+   }
+  }
+ ]
+}

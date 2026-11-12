@@ -10,10 +10,11 @@ A passive website security scanner with a clean web interface. It grades HTTPS, 
 [![CI](https://github.com/vicuvi1/SiteSentry/actions/workflows/ci.yml/badge.svg)](https://github.com/vicuvi1/SiteSentry/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)
-![Tests](https://img.shields.io/badge/tests-54-brightgreen)
+[![CodeQL](https://github.com/vicuvi1/SiteSentry/actions/workflows/codeql.yml/badge.svg)](https://github.com/vicuvi1/SiteSentry/actions/workflows/codeql.yml)
+![Tests](https://img.shields.io/badge/tests-72-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-**[🌐 Project page](https://vicuvi1.github.io/SiteSentry/)** · **[📄 Live report: github.com (A+)](https://vicuvi1.github.io/SiteSentry/report-github.com.html)** · **[📄 Live report: example.com (D)](https://vicuvi1.github.io/SiteSentry/report-example.com.html)**
+**[🌐 Project page](https://vicuvi1.github.io/SiteSentry/)** · **[📊 Research: 100 popular sites scanned](https://vicuvi1.github.io/SiteSentry/research.html)** · **[📄 Live report: github.com (A+)](https://vicuvi1.github.io/SiteSentry/report-github.com.html)** · **[📄 Live report: example.com (D)](https://vicuvi1.github.io/SiteSentry/report-example.com.html)**
 
 <sub>Made by <a href="https://github.com/vicuvi1"><b>Victor Barbuta</b></a></sub>
 
@@ -59,6 +60,12 @@ flowchart LR
     F --> G[Web UI · CLI<br/>HTML · PDF · JSON]
     F --> H[Fix generator<br/>nginx · Apache · Caddy · Express]
 ```
+
+## 📊 Research: I scanned 100 popular websites
+
+Using SiteSentry, I scanned 100 of the world's most widely used websites. **Only 31% earn an A or better, 52% have no Content-Security-Policy at all, and 13% still accept TLS 1.0/1.1**, while email defences (SPF 99%, DMARC enforced 91%) are far ahead of browser-side protections.
+
+**[Read the full report with charts and per-site data →](https://vicuvi1.github.io/SiteSentry/research.html)** · reproducible with [`research/`](research/)
 
 ## Why I built this
 
@@ -110,7 +117,7 @@ python -m sitesentry example.com
 python -m sitesentry example.com --html report.html --json report.json
 ```
 
-Optionally install it as a command with `pip install .` and then run `sitesentry example.com`.
+Optionally install it as a command with `pip install ".[certs]"` and then run `sitesentry example.com`. The optional `certs` extra adds Mozilla's CA bundle, so certificate results are identical on every OS.
 
 ### Docker
 
@@ -129,11 +136,22 @@ docker run --rm -p 8765:8765 sitesentry --serve --host 0.0.0.0 --no-browser   # 
 
 Exit codes: `0` = OK, `1` = grade below `--fail-under`, `2` = scan error.
 
+### Running it as a shared service
+
+The web server fetches URLs on behalf of whoever can reach it, so it is hardened against **SSRF**:
+
+- private, loopback, link-local and other reserved addresses are refused (including IPv4-mapped and 6to4 IPv6 tricks), so it can't be used to probe `192.168.x.x` or the cloud metadata service at `169.254.169.254`
+- connections are **pinned to the vetted IP**, which defeats DNS rebinding, and **every redirect hop is re-checked**
+- a Host-header allow-list on loopback servers blocks DNS-rebinding attacks against the UI itself
+- per-client rate limiting, a cap on concurrent scans, and the port check disabled in shared mode
+
+Use `--allow-private` only when you deliberately want to scan your own internal or dev servers.
+
 <details>
 <summary><b>All CLI options</b></summary>
 
 ```
-sitesentry [target] [--serve] [--host HOST] [--port PORT] [--no-browser]
+sitesentry [target] [--serve] [--host HOST] [--port PORT] [--no-browser] [--allow-private]
            [--html FILE] [--json FILE|-] [--ports] [--no-dns]
            [--timeout SECONDS] [--fail-under GRADE] [--no-color]
 ```
@@ -153,6 +171,7 @@ Every check has a severity. A failed check removes points from 100 (critical 30 
 sitesentry/
 ├── net.py          # stdlib HTTP client: manual redirects, keeps every hop & repeated headers
 ├── dns.py          # DNS client from scratch (RFC 1035): UDP + TCP fallback, compression pointers
+├── safety.py       # SSRF guard: blocks internal targets, pins connections to vetted IPs
 ├── scanner.py      # orchestrates checks, handles HTTPS→HTTP fallback & bad certificates
 ├── checks/         # one module per area; pure functions → easy to unit-test
 │   ├── headers.py  cookies.py  cors.py  tls.py  email_dns.py
@@ -165,7 +184,8 @@ sitesentry/
 
 Design decisions:
 - **Zero dependencies.** Built on `http.client`, `ssl` and `socket`. The standard library can't query TXT or CAA records, so I wrote a **small DNS client** that builds query packets by hand and parses binary responses, including compression pointers and TCP fallback for truncated answers.
-- **Checks are pure functions** that take collected data and return `Finding` objects. 54 unit and end-to-end tests run without internet access: against hand-built DNS packets, a fake resolver, and a local, deliberately insecure web server.
+- **Checks are pure functions** that take collected data and return `Finding` objects. 72 unit, end-to-end and attack-driven security tests run without internet access: against hand-built DNS packets, a fake resolver, and a local, deliberately insecure web server.
+- **Security tooling on itself.** Every push runs **CodeQL** (security-extended queries), **ruff** with bandit security rules, and **mypy**. Dependabot keeps CI and Docker dependencies current.
 - **It follows its own advice.** The web UI is served with a strict **nonce-based CSP**, `frame-ancestors 'none'`, `nosniff` and `no-referrer`. Scan data embedded in HTML reports is escaped so a malicious target can't inject script into your report, and a regression test checks this.
 
 ## Ethics & legal
@@ -174,13 +194,15 @@ SiteSentry is **passive**: it makes the same kind of requests a browser does (a 
 
 ## Skills demonstrated
 
-`Python` · `HTTP, TLS & DNS internals` · `binary protocol parsing` · `OWASP secure headers` · `CSP / CORS analysis` · `email security (SPF, DMARC)` · `secure coding` · `automated testing` · `CI/CD (GitHub Actions)` · `Docker` · `DevSecOps` · `UI design` · `technical writing`
+`Python` · `SSRF defence` · `security research` · `HTTP, TLS & DNS internals` · `binary protocol parsing` · `OWASP secure headers` · `CSP / CORS analysis` · `email security (SPF, DMARC)` · `secure coding` · `automated testing` · `CI/CD (GitHub Actions)` · `Docker` · `DevSecOps` · `UI design` · `technical writing`
 
 ## Roadmap
 
 - [x] SPF, DMARC and CAA checks
 - [x] Copy-paste fix generator (nginx, Apache, Caddy, Express)
 - [x] Docker image
+- [x] SSRF hardening for shared deployments
+- [x] Research: 100 popular websites scanned
 - [ ] DNSSEC validation
 - [ ] Compare two scans and highlight regressions
 - [ ] Detect exposed files (`/.git/`, `/.env`) with explicit authorisation

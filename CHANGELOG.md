@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0] - 2026-11-12
+
+### Security
+- **SSRF hardening for the web server.** Private, loopback, link-local and reserved targets are refused (including IPv4-mapped and 6to4 IPv6), connections are pinned to the vetted IP (defeats DNS rebinding), and every redirect hop is re-checked. Opt out with `--allow-private`.
+- Host-header allow-list on loopback servers (DNS rebinding against the UI), per-client rate limiting, a concurrent-scan cap, port check disabled in shared mode, and no Python version in the `Server` header.
+- CodeQL (security-extended), ruff with bandit security rules, and mypy run on every push; Dependabot added.
+
+### Fixed
+- **False "invalid certificate" (grade F) on Windows** for sites whose root CA isn't cached locally (found while scanning 100 sites, e.g. cnn.com and walmart.com). Mozilla's CA bundle is now used when available, and an unverifiable chain is reported as an "incomplete chain" warning instead of a critical failure.
+- TLS client contexts set an explicit TLS 1.2 minimum.
+
+### Added
+- **Research:** 100 popular websites scanned, published at `docs/research.html` with reproducible scripts in `research/`.
+- Optional `certs` extra (`pip install ".[certs]"`); the Docker image includes it.
+- 18 new tests (72 total), including attack-driven SSRF, DNS-rebinding and rate-limit tests.
+
 ## [1.1.1] - 2026-11-12
 
 ### Added

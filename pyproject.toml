@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sitesentry"
-version = "1.1.1"
+version = "1.2.0"
 description = "Passive website security scanner with a web UI: HTTPS, TLS, security headers, cookies, CORS and information leaks."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Victor Barbuta" }]
 dependencies = []
+
+[project.optional-dependencies]
+certs = ["certifi"]  # Mozilla CA bundle: consistent certificate results on every OS
 keywords = ["security", "scanner", "tls", "http-headers", "owasp", "appsec"]
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -53,3 +56,7 @@ files = ["sitesentry"]
 warn_unused_ignores = true
 warn_redundant_casts = true
 check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["certifi"]
+ignore_missing_imports = true
