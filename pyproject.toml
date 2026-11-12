@@ -11,16 +11,16 @@ requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Victor Barbuta" }]
 dependencies = []
-
-[project.optional-dependencies]
-certs = ["certifi"]  # Mozilla CA bundle: consistent certificate results on every OS
-keywords = ["security", "scanner", "tls", "http-headers", "owasp", "appsec"]
+keywords = ["security", "cybersecurity", "scanner", "tls", "http-headers", "owasp", "appsec", "ssrf"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "Topic :: Security",
   "Environment :: Console",
   "Environment :: Web Environment",
 ]
+
+[project.optional-dependencies]
+certs = ["certifi"]  # Mozilla CA bundle: consistent certificate results on every OS
 
 [project.urls]
 Homepage = "https://vicuvi1.github.io/SiteSentry/"
