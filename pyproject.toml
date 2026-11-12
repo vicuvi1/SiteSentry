@@ -7,7 +7,7 @@ name = "sitesentry"
 version = "1.0.0"
 description = "Passive website security scanner with a web UI: HTTPS, TLS, security headers, cookies, CORS and information leaks."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = { text = "MIT" }
 dependencies = []
 keywords = ["security", "scanner", "tls", "http-headers", "owasp", "appsec"]
