@@ -11,10 +11,10 @@ A passive website security scanner with a clean web interface. It grades HTTPS, 
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)
 [![CodeQL](https://github.com/vicuvi1/SiteSentry/actions/workflows/codeql.yml/badge.svg)](https://github.com/vicuvi1/SiteSentry/actions/workflows/codeql.yml)
-![Tests](https://img.shields.io/badge/tests-72-brightgreen)
+![Tests](https://img.shields.io/badge/tests-85-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-**[🌐 Project page](https://vicuvi1.github.io/SiteSentry/)** · **[📊 Research: 100 popular sites scanned](https://vicuvi1.github.io/SiteSentry/research.html)** · **[📄 Live report: github.com (A+)](https://vicuvi1.github.io/SiteSentry/report-github.com.html)** · **[📄 Live report: example.com (D)](https://vicuvi1.github.io/SiteSentry/report-example.com.html)**
+**[🌐 Project page](https://vicuvi1.github.io/SiteSentry/)** · **[📊 Research: 100 popular sites scanned](https://vicuvi1.github.io/SiteSentry/research.html)** · **[📄 Live report: github.com (A+)](https://vicuvi1.github.io/SiteSentry/report-github.com.html)** · **[📄 Live report: example.com (D)](https://vicuvi1.github.io/SiteSentry/report-example.com.html)** · **[⚖️ Live comparison](https://vicuvi1.github.io/SiteSentry/compare-github-vs-example.html)**
 
 <sub>Made by <a href="https://github.com/vicuvi1"><b>Victor Barbuta</b></a></sub>
 
@@ -97,9 +97,14 @@ Every scan generates ready-to-use configuration for the issues it found, for **n
 
 ### The web interface
 
-Light and dark themes, recent-scan history, shareable `?url=` links, filters, and downloadable HTML / JSON reports (printable to PDF).
+- **Live scan console:** watch every step stream in real time from the server (Server-Sent Events).
+- **Security profile:** a radar chart and per-category scores show strong and weak areas at a glance.
+- **Compare mode:** scan two sites side by side, e.g. staging vs production or you vs a competitor.
+- Light and dark themes, recent scans, shareable `?url=` links, a `/` keyboard shortcut, and downloadable HTML / JSON / PDF reports.
 
 <img src="docs/img/home.png" alt="SiteSentry home screen" width="900">
+
+<img src="docs/img/compare.png" alt="Comparing github.com (A+) with example.com (D) category by category" width="900">
 
 ## Quick start
 
@@ -134,7 +139,20 @@ docker run --rm -p 8765:8765 sitesentry --serve --host 0.0.0.0 --no-browser   # 
   run: python -m sitesentry https://staging.myapp.com --fail-under B
 ```
 
-Exit codes: `0` = OK, `1` = grade below `--fail-under`, `2` = scan error.
+Catch regressions between deploys by comparing with the last report:
+
+```bash
+sitesentry https://myapp.com --json today.json --baseline yesterday.json --fail-on-regression
+```
+
+Exit codes: `0` = OK, `1` = grade below `--fail-under` or a regression, `2` = scan error.
+
+### Bulk scans and comparisons
+
+```bash
+sitesentry --list sites.txt --csv results.csv      # one site per line, scanned in parallel
+sitesentry --compare staging.myapp.com myapp.com --html compare.html
+```
 
 ### Running it as a shared service
 
@@ -152,8 +170,10 @@ Use `--allow-private` only when you deliberately want to scan your own internal 
 
 ```
 sitesentry [target] [--serve] [--host HOST] [--port PORT] [--no-browser] [--allow-private]
-           [--html FILE] [--json FILE|-] [--ports] [--no-dns]
-           [--timeout SECONDS] [--fail-under GRADE] [--no-color]
+           [--html FILE] [--json FILE|-] [--csv FILE] [--no-color]
+           [--compare SITE_A SITE_B] [--list FILE] [--workers N]
+           [--ports] [--no-dns] [--timeout SECONDS]
+           [--fail-under GRADE] [--baseline FILE] [--fail-on-regression]
 ```
 </details>
 
@@ -176,15 +196,17 @@ sitesentry/
 ├── checks/         # one module per area; pure functions → easy to unit-test
 │   ├── headers.py  cookies.py  cors.py  tls.py  email_dns.py
 │   └── transport.py  content.py  disclosure.py  misc.py
-├── scoring.py      # findings → 0-100 score → grade
+├── scoring.py      # findings → 0-100 score → grade, plus per-category scores
+├── diff.py         # compare with a baseline report → regressions / improvements
+├── bulk.py         # parallel scans of many sites, CSV output
 ├── report.py       # terminal / JSON / standalone HTML
-├── web.py          # local web server + JSON API (/api/scan)
+├── web.py          # web server: JSON API + live progress stream (SSE)
 └── ui/index.html   # single-page UI (also the HTML report template)
 ```
 
 Design decisions:
 - **Zero dependencies.** Built on `http.client`, `ssl` and `socket`. The standard library can't query TXT or CAA records, so I wrote a **small DNS client** that builds query packets by hand and parses binary responses, including compression pointers and TCP fallback for truncated answers.
-- **Checks are pure functions** that take collected data and return `Finding` objects. 72 unit, end-to-end and attack-driven security tests run without internet access: against hand-built DNS packets, a fake resolver, and a local, deliberately insecure web server.
+- **Checks are pure functions** that take collected data and return `Finding` objects. 85 unit, end-to-end and attack-driven security tests run without internet access: against hand-built DNS packets, a fake resolver, and a local, deliberately insecure web server.
 - **Security tooling on itself.** Every push runs **CodeQL** (security-extended queries), **ruff** with bandit security rules, and **mypy**. Dependabot keeps CI and Docker dependencies current.
 - **It follows its own advice.** The web UI is served with a strict **nonce-based CSP**, `frame-ancestors 'none'`, `nosniff` and `no-referrer`. Scan data embedded in HTML reports is escaped so a malicious target can't inject script into your report, and a regression test checks this.
 
@@ -204,7 +226,8 @@ SiteSentry is **passive**: it makes the same kind of requests a browser does (a 
 - [x] SSRF hardening for shared deployments
 - [x] Research: 100 popular websites scanned
 - [ ] DNSSEC validation
-- [ ] Compare two scans and highlight regressions
+- [x] Compare two sites, and catch regressions against a baseline
+- [x] Live scan progress, security profile radar, bulk scanning
 - [ ] Detect exposed files (`/.git/`, `/.env`) with explicit authorisation
 
 See [CHANGELOG.md](CHANGELOG.md) for release history.

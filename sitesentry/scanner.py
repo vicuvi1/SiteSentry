@@ -138,6 +138,7 @@ def scan(
         log("Probing commonly abused service ports")
         findings += misc.scan_ports(pinned_ip or host)
 
+    log("Calculating grade")
     result = ScanResult(
         target=target,
         final_url=final.url,

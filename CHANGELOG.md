@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.3.0] - 2026-11-12
+
+### Added
+- **Redesigned web interface:** ambient "security console" look, glass cards, light/dark themes, toggle switches, a `/` shortcut, and reduced-motion support.
+- **Live scan console:** real progress streamed from the server over Server-Sent Events (`/api/scan/stream`), with an automatic fallback to the JSON API.
+- **Security profile:** per-category scores (radar chart and bars in the UI, bars in the terminal, `categories` in JSON).
+- **Compare mode:** two sites side by side in the UI, `--compare A B` on the CLI, and standalone comparison reports (`--html`).
+- **Bulk scanning:** `--list sites.txt` with parallel workers and `--csv` output.
+- **Regression checks:** `--baseline old.json` shows fixed/regressed checks; `--fail-on-regression` for CI.
+- "Copy link" button and `?a=&b=` deep links for comparisons.
+- 13 new tests (85 total), covering the SSE stream, bulk, diff and compare (including an XSS regression test for comparison reports).
+
+### Fixed
+- CSV output had blank rows on Windows (`
+` line endings).
+- Saved HTML reports no longer play entrance animations (print and PDF friendly).
+
 ## [1.2.0] - 2026-11-12
 
 ### Security

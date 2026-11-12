@@ -124,40 +124,88 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, report.ui_page(), "text/html; charset=utf-8")
         elif url.path == "/api/scan":
             self._scan(parse_qs(url.query))
+        elif url.path == "/api/scan/stream":
+            self._scan_stream(parse_qs(url.query))
         elif url.path == "/favicon.ico":
             self.send_response(204)
             self.end_headers()
         else:
             self._json(404, {"error": "Not found"})
 
-    def _scan(self, qs: dict[str, list[str]]) -> None:
+    # -- shared admission control ------------------------------------------------
+
+    def _admit(self, qs: dict[str, list[str]]) -> tuple[str, bool] | tuple[int, str]:
+        """Return (target, ports) if the scan may run, else (http_status, error). Takes a scan slot."""
         target = (qs.get("url") or [""])[0][:2048]
         ports = (qs.get("ports") or ["0"])[0] == "1"
         if ports and not self.server.local_only:
-            self._json(403, {"error": "The port check is disabled on shared servers. Run SiteSentry locally to use it."})
-            return
+            return 403, "The port check is disabled on shared servers. Run SiteSentry locally to use it."
         if not self.server.limiter.allow(self.client_address[0]):
-            self._json(429, {"error": f"Too many scans. The limit is {self.server.limiter.limit} per minute."})
-            return
+            return 429, f"Too many scans. The limit is {self.server.limiter.limit} per minute."
         if not self.server.slots.acquire(blocking=False):
-            self._json(503, {"error": "The server is busy with other scans. Try again in a few seconds."})
-            return
+            return 503, "The server is busy with other scans. Try again in a few seconds."
+        return target, ports
+
+    def _run(self, target: str, ports: bool, log=None):
+        """Run a scan; returns (status, payload)."""
         try:
             print(f"  scanning {target}{' (+ports)' if ports else ''} ...", flush=True)
-            result = scan(target, check_ports=ports, timeout=self.server.scan_timeout, guard=self.server.guard)
+            result = scan(target, check_ports=ports, timeout=self.server.scan_timeout, guard=self.server.guard, log=log)
         except ValueError as exc:
-            self._json(400, {"error": str(exc)})
+            return 400, {"error": str(exc)}
         except BlockedTarget as exc:
-            self._json(403, {"error": str(exc)})
+            return 403, {"error": str(exc)}
         except ScanError as exc:
-            self._json(502, {"error": str(exc)})
+            return 502, {"error": str(exc)}
+        except (BrokenPipeError, ConnectionResetError):
+            raise  # client went away mid-stream
         except Exception:  # never crash or leak internals on one bad scan
-            self._json(500, {"error": "Unexpected error while scanning."})
-        else:
-            print(f"  done: {result.final_url} -> {result.grade} ({result.score}/100)", flush=True)
-            self._json(200, result.to_dict())
+            return 500, {"error": "Unexpected error while scanning."}
         finally:
             self.server.slots.release()
+        print(f"  done: {result.final_url} -> {result.grade} ({result.score}/100)", flush=True)
+        return 200, result.to_dict()
+
+    # -- endpoints -----------------------------------------------------------------
+
+    def _scan(self, qs: dict[str, list[str]]) -> None:
+        admitted = self._admit(qs)
+        if isinstance(admitted[0], int):
+            self._json(admitted[0], {"error": admitted[1]})
+            return
+        target, ports = admitted
+        status, payload = self._run(str(target), bool(ports))
+        self._json(status, payload)
+
+    def _scan_stream(self, qs: dict[str, list[str]]) -> None:
+        """Server-Sent Events: 'step' events while scanning, then one 'result' or 'fail' event."""
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Connection", "close")
+        self.end_headers()
+        self.close_connection = True
+
+        def emit(event: str, data: dict) -> None:
+            self.wfile.write(f"event: {event}\ndata: {json.dumps(data)}\n\n".encode())
+            self.wfile.flush()
+
+        try:
+            admitted = self._admit(qs)
+            if isinstance(admitted[0], int):
+                emit("fail", {"status": admitted[0], "error": admitted[1]})
+                return
+            target, ports = admitted
+            started = time.monotonic()
+            status, payload = self._run(str(target), bool(ports),
+                                        log=lambda msg: emit("step", {"msg": msg, "t": round(time.monotonic() - started, 2)}))
+            if status == 200:
+                emit("result", payload)
+            else:
+                emit("fail", {"status": status, **payload})
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # browser closed the tab; the scan was aborted by the failed write
 
 
 def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True, timeout: float = 10.0,

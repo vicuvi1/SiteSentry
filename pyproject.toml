@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sitesentry"
-version = "1.2.0"
+version = "1.3.0"
 description = "Passive website security scanner with a web UI: HTTPS, TLS, security headers, cookies, CORS and information leaks."
 readme = "README.md"
 requires-python = ">=3.11"

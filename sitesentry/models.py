@@ -84,6 +84,10 @@ class ScanResult:
             out[f.status.value] += 1
         return out
 
+    def category_scores(self) -> dict[str, int]:
+        from .scoring import category_scores  # local import avoids a cycle
+        return category_scores(self.findings)
+
     def to_dict(self) -> dict:
         return {
             "tool": "SiteSentry",
@@ -94,6 +98,7 @@ class ScanResult:
             "score": self.score,
             "grade": self.grade,
             "counts": self.counts(),
+            "categories": self.category_scores(),
             "notes": self.notes,
             "findings": [f.to_dict() for f in self.findings],
         }

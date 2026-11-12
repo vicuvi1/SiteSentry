@@ -20,3 +20,21 @@ def score(findings: list[Finding]) -> tuple[int, str]:
     if any(f.status == Status.FAIL and f.severity == Severity.CRITICAL for f in findings):
         grade = "F"  # no HTTPS / broken certificate can't be "average"
     return value, grade
+
+
+def category_scores(findings: list[Finding]) -> dict[str, int]:
+    """Per-category 0-100 score: the weighted share of checks that pass (warnings count half).
+
+    Every check weighs at least 1, so informational checks (e.g. security.txt) still count.
+    INFO results are neutral and left out.
+    """
+    totals: dict[str, list[float]] = {}
+    for f in findings:
+        if f.status == Status.INFO:
+            continue
+        weight = max(f.severity.weight, 1)
+        earned = weight if f.status == Status.PASS else weight / 2 if f.status == Status.WARN else 0
+        bucket = totals.setdefault(f.category, [0.0, 0.0])
+        bucket[0] += earned
+        bucket[1] += weight
+    return {cat: round(100 * earned / total) for cat, (earned, total) in totals.items() if total}

@@ -27,6 +27,33 @@ def to_html(result: ScanResult) -> str:
     return ui_page().replace(PLACEHOLDER, f"<script>window.__SITESENTRY_REPORT__={data};</script>", 1)
 
 
+def to_compare_html(a: ScanResult, b: ScanResult) -> str:
+    """Self-contained side-by-side comparison report."""
+    data = json.dumps([a.to_dict(), b.to_dict()]).replace("<", "\\u003c")  # can't break out of <script>
+    return ui_page().replace(PLACEHOLDER, f"<script>window.__SITESENTRY_COMPARE__={data};</script>", 1)
+
+
+def compare_console(a: ScanResult, b: ScanResult) -> str:
+    ca, cb = a.category_scores(), b.category_scores()
+    ha, hb = a.final_url.split("/")[2], b.final_url.split("/")[2]
+    w = max(len(ha), len(hb), 8)
+    lines = ["", "SiteSentry comparison  -  made by Victor Barbuta", "",
+             f"  {'':<24} {ha:>{w}}   {hb:>{w}}",
+             f"  {'Grade':<24} {a.grade:>{w}}   {b.grade:>{w}}",
+             f"  {'Score':<24} {a.score:>{w}}   {b.score:>{w}}", ""]
+    cats = sorted(set(ca) | set(cb), key=lambda k: CATEGORY_ORDER.index(k) if k in CATEGORY_ORDER else 99)
+    for cat in cats:
+        x, y = ca.get(cat), cb.get(cat)
+        mark_x = " *" if x is not None and y is not None and x > y else "  "
+        mark_y = " *" if x is not None and y is not None and y > x else "  "
+        sx = "-" if x is None else str(x)
+        sy = "-" if y is None else str(y)
+        lines.append(f"  {cat:<24} {sx:>{w}}{mark_x} {sy:>{w}}{mark_y}")
+    winner = ha if a.score > b.score else hb if b.score > a.score else None
+    lines += ["", f"  {'Winner: ' + winner if winner else 'Tie'}   (* = better in that category)", ""]
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------------- terminal --
 
 def _use_color(stream) -> bool:
@@ -54,7 +81,15 @@ def to_console(result: ScanResult, color: bool | None = None) -> str:
         f"  Grade  : {c('1;' + grade_code, result.grade)}  ({result.score}/100)",
         f"  Checks : {counts['pass']} passed, {counts['warn']} warnings, {counts['fail']} failed",
         "",
+        c("1", "  Security profile"),
     ]
+    profile = result.category_scores()
+    for cat in sorted(profile, key=lambda k: CATEGORY_ORDER.index(k) if k in CATEGORY_ORDER else 99):
+        value = profile[cat]
+        bar = "#" * round(value / 5)
+        code = "32" if value >= 85 else "33" if value >= 55 else "31"
+        lines.append(f"    {cat:<24} {c(code, f'{bar:<20}')} {value:>3}")
+    lines.append("")
     category = None
     order = {Status.FAIL: 0, Status.WARN: 1, Status.INFO: 2, Status.PASS: 3}
 
