@@ -5,7 +5,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import __version__, report
+from . import __author__, __version__, report
 from .scanner import ScanError, scan
 
 GRADE_ORDER = ["F", "D", "C", "B", "A", "A+"]
@@ -34,7 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--fail-under", metavar="GRADE", choices=GRADE_ORDER,
                    help="exit with code 1 if the grade is below this (for CI pipelines)")
     p.add_argument("--no-color", action="store_true", help="disable coloured output")
-    p.add_argument("--version", action="version", version=f"SiteSentry {__version__}")
+    p.add_argument("--version", action="version", version=f"SiteSentry {__version__}, made by {__author__}")
     return p
 
 

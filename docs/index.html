@@ -84,7 +84,7 @@ h2{font-size:clamp(26px,3.5vw,36px);letter-spacing:-.025em;line-height:1.15;marg
 .checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:3px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 5 5 9-10'/%3E%3C/svg%3E") center/12px no-repeat}
 .checks b{color:var(--text)}
 
-.code{background:#0d1117;color:#e6edf3;border-radius:14px;padding:20px 22px;font-family:var(--mono);font-size:14px;line-height:1.8;overflow-x:auto;position:relative;border:1px solid #243049}
+.code{background:#0d1117;color:#e6edf3;border-radius:14px;padding:20px 22px;font-family:var(--mono);font-size:14px;line-height:1.8;overflow-x:auto;position:relative;border:1px solid #243049;white-space:pre}
 .code .c{color:#7d8590} .code .p{color:#7ee787;user-select:none}
 .copy{position:absolute;top:12px;right:12px;background:#1f2633;color:#e6edf3;border:1px solid #30363d;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 
@@ -95,7 +95,34 @@ h2{font-size:clamp(26px,3.5vw,36px);letter-spacing:-.025em;line-height:1.15;marg
 .stat b{display:block;font-size:34px;letter-spacing:-.03em;color:var(--accent)}
 .stat span{font-size:13.5px;color:var(--muted)}
 .final{text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:56px 24px;box-shadow:var(--shadow)}
-footer{padding:36px 0;text-align:center;color:var(--faint);font-size:13.5px}
+footer{padding:36px 0;text-align:center;color:var(--faint);font-size:13.5px;line-height:1.8}
+
+.intro{display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:start}
+.intro p{color:var(--muted);margin:0 0 14px}
+.intro p b{color:var(--text)}
+.who{display:flex;flex-direction:column;gap:12px;margin-top:34px}
+.who-item{display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 18px}
+.who-item span{font-size:24px;line-height:1.2}
+.who-item b{font-size:15px}
+.who-item p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.who-item code,.intro code{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);padding:1px 6px;border-radius:6px}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-top:44px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;height:100%}
+.step b{display:inline-flex;width:28px;height:28px;border-radius:9px;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:14px}
+.step h4{margin:10px 0 4px;font-size:15px}
+.step p{margin:0;font-size:13.5px;color:var(--muted)}
+.arrow{color:var(--faint);font-size:20px}
+.author{display:flex;gap:28px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:32px}
+.author img,.author .avatar{flex:none;width:96px;height:96px;border-radius:50%;border:3px solid var(--accent-soft)}
+.author .avatar{display:flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;font-weight:700;font-size:30px}
+.author p{color:var(--muted);margin:0;max-width:640px}
+@media (max-width:820px){
+  .intro{grid-template-columns:1fr;gap:8px}
+  .flow{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg);text-align:center}
+  .author{flex-direction:column;text-align:center}
+  .author .cta{justify-content:center!important}
+}
 @media (max-width:820px){
   .grid,.split,.stats{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
@@ -112,6 +139,7 @@ footer{padding:36px 0;text-align:center;color:var(--faint);font-size:13.5px}
       SiteSentry
     </a>
     <div class="nav-links">
+      <a class="hide-sm" href="#intro">Introduction</a>
       <a class="hide-sm" href="#features">Features</a>
       <a class="hide-sm" href="#fix">Fixes</a>
       <a class="hide-sm" href="#start">Get started</a>
@@ -143,7 +171,35 @@ footer{padding:36px 0;text-align:center;color:var(--faint);font-size:13.5px}
   </div>
 </header>
 
-<section id="features">
+<section id="intro">
+  <div class="wrap intro">
+    <div>
+      <div class="kicker">Introduction</div>
+      <h2>What is SiteSentry?</h2>
+      <p>SiteSentry checks <b>how well a website protects its visitors</b>. You give it an address, and a few seconds later it tells you what is set up correctly, what is missing and exactly what to change. It sums all of that up as one grade from A+ to F that anyone can understand.</p>
+      <p>It looks at what a browser, and an attacker, can see from the outside: whether the connection is properly encrypted, whether the site switches on the browser's defences against common attacks, whether cookies or user data can be stolen, and whether someone could send emails pretending to be the domain.</p>
+      <p>It <b>never tries to break in</b>. Every check is a normal request, the same as visiting the page, so scans are safe and fast.</p>
+    </div>
+    <div class="who">
+      <div class="who-item"><span>👩‍💻</span><div><b>Developers</b><p>Check secure defaults before going live and copy the exact config that fixes each issue.</p></div></div>
+      <div class="who-item"><span>🎓</span><div><b>Students &amp; junior analysts</b><p>Learn web security hands-on: every finding explains why it matters, with OWASP and MDN references.</p></div></div>
+      <div class="who-item"><span>⚙️</span><div><b>DevSecOps teams</b><p>Add an automatic security gate to CI/CD: <code>--fail-under B</code> fails the build if security gets worse.</p></div></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="flow" aria-label="How SiteSentry works">
+      <div class="step"><b>1</b><h4>Enter a URL</h4><p>Any public website, from the web UI or the terminal.</p></div>
+      <div class="arrow">→</div>
+      <div class="step"><b>2</b><h4>Scan</h4><p>HTTP, TLS and DNS are inspected with 20+ passive checks.</p></div>
+      <div class="arrow">→</div>
+      <div class="step"><b>3</b><h4>Grade</h4><p>Findings are weighted by severity into a score from A+ to F.</p></div>
+      <div class="arrow">→</div>
+      <div class="step"><b>4</b><h4>Fix</h4><p>Copy-paste config for nginx, Apache, Caddy or Express.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="features" style="padding-top:0">
   <div class="wrap">
     <div class="kicker">What it checks</div>
     <h2>The misconfigurations attackers look for first</h2>
@@ -202,6 +258,23 @@ footer{padding:36px 0;text-align:center;color:var(--faint);font-size:13.5px}
   </div>
 </section>
 
+<section id="author" style="padding-top:0">
+  <div class="wrap">
+    <div class="author">
+      <img src="https://github.com/vicuvi1.png" alt="Victor Barbuta" width="96" height="96" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'avatar',textContent:'VB'}))">
+      <div>
+        <div class="kicker">The author</div>
+        <h2 style="margin-bottom:6px">Made by Victor Barbuta</h2>
+        <p>I designed and built SiteSentry as a hands-on cybersecurity project, from the HTTP and DNS clients to the scoring model and the interface. The goal is a tool that is genuinely useful and explains security in plain language.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:16px">
+          <a class="btn ghost small" href="https://github.com/vicuvi1">GitHub @vicuvi1</a>
+          <a class="btn ghost small" href="https://github.com/vicuvi1/SiteSentry/issues">Report an issue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section style="padding-top:0">
   <div class="wrap">
     <div class="final">
@@ -216,7 +289,7 @@ footer{padding:36px 0;text-align:center;color:var(--faint);font-size:13.5px}
 </section>
 
 <footer>
-  <div class="wrap">Built by <a href="https://github.com/vicuvi1">vicuvi1</a> · MIT licensed · Only scan sites you own or have permission to test.</div>
+  <div class="wrap">Made by <a href="https://github.com/vicuvi1"><b>Victor Barbuta</b></a> · MIT licensed · © 2026<br>Only scan sites you own or have permission to test.</div>
 </footer>
 <script>
 document.getElementById("copy").onclick = async (e) => {

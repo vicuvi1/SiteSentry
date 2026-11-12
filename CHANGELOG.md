@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1] - 2026-11-12
+
+### Added
+- Introduction section (what SiteSentry is, who it's for, a "How it works" diagram) in the README and on the project page.
+- "Made by Victor Barbuta" credit in the README, project page, web app, HTML reports, CLI and package metadata.
+- Author section on the project page and in the README.
+
 ## [1.1.0] - 2026-11-12
 
 ### Added

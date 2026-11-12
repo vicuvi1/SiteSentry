@@ -4,11 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sitesentry"
-version = "1.1.0"
+version = "1.1.1"
 description = "Passive website security scanner with a web UI: HTTPS, TLS, security headers, cookies, CORS and information leaks."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
+authors = [{ name = "Victor Barbuta" }]
 dependencies = []
 keywords = ["security", "scanner", "tls", "http-headers", "owasp", "appsec"]
 classifiers = [
@@ -17,6 +18,10 @@ classifiers = [
   "Environment :: Console",
   "Environment :: Web Environment",
 ]
+
+[project.urls]
+Homepage = "https://vicuvi1.github.io/SiteSentry/"
+Source = "https://github.com/vicuvi1/SiteSentry"
 
 [project.scripts]
 sitesentry = "sitesentry.cli:main"

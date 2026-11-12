@@ -14,11 +14,50 @@ A passive website security scanner with a clean web interface. It grades HTTPS, 
 
 **[🌐 Project page](https://vicuvi1.github.io/SiteSentry/)** · **[📄 Live report: github.com (A+)](https://vicuvi1.github.io/SiteSentry/report-github.com.html)** · **[📄 Live report: example.com (D)](https://vicuvi1.github.io/SiteSentry/report-example.com.html)**
 
+<sub>Made by <a href="https://github.com/vicuvi1"><b>Victor Barbuta</b></a></sub>
+
 <img src="docs/img/report-dark.png" alt="SiteSentry report showing an A+ grade, top priorities and a config generator" width="900">
 
 </div>
 
 ---
+
+## Introduction
+
+**SiteSentry checks how well a website protects its visitors.** You give it an address, and a few seconds later it tells you what is set up correctly, what is missing and exactly what to change. It sums all of that up as a single grade from **A+ to F** that anyone can understand.
+
+It looks at what a browser, and an attacker, can see from the outside:
+
+- 🔒 **Is the connection really encrypted?** HTTPS, certificate health, modern TLS versions.
+- 🛡️ **Does the site switch on the browser's built-in defences** against cross-site scripting, clickjacking and content sniffing?
+- 🍪 **Can session cookies be stolen**, or can other websites read a logged-in user's data (CORS)?
+- ✉️ **Could someone send emails pretending to be this domain?** SPF, DMARC and CAA records.
+- 🕵️ **Is the server leaking** software versions that make known exploits easy to find?
+
+SiteSentry **never tries to break in**. Every check is a normal request, the same as visiting the page in a browser, so the scan is safe and fast.
+
+**Who it's for**
+
+| | |
+|---|---|
+| 👩‍💻 **Developers** | Check secure defaults before going live and copy the exact server config that fixes each issue. |
+| 🎓 **Students & junior analysts** | See how web security works in practice: every finding explains *why* it matters, with links to OWASP and MDN. |
+| ⚙️ **DevOps / DevSecOps teams** | Add an automatic security gate to CI/CD with `--fail-under B`. |
+
+### How it works
+
+```mermaid
+flowchart LR
+    A([🌐 URL]) --> B[HTTP client<br/>follows every redirect]
+    A --> C[TLS handshake<br/>certificate & protocols]
+    A --> D[DNS client<br/>SPF · DMARC · CAA]
+    B --> E{20+ security checks}
+    C --> E
+    D --> E
+    E --> F[Score & grade<br/>A+ to F]
+    F --> G[Web UI · CLI<br/>HTML · PDF · JSON]
+    F --> H[Fix generator<br/>nginx · Apache · Caddy · Express]
+```
 
 ## Why I built this
 
@@ -147,6 +186,21 @@ SiteSentry is **passive**: it makes the same kind of requests a browser does (a 
 
 See [CHANGELOG.md](CHANGELOG.md) for release history.
 
+## Author
+
+<table>
+  <tr>
+    <td><img src="https://github.com/vicuvi1.png" width="72" alt="Victor Barbuta"></td>
+    <td>
+      <b>Made by Victor Barbuta</b><br>
+      Designed and built as a hands-on cybersecurity project.<br>
+      <a href="https://github.com/vicuvi1">GitHub @vicuvi1</a>
+    </td>
+  </tr>
+</table>
+
+Found a bug or have an idea? [Open an issue](https://github.com/vicuvi1/SiteSentry/issues). If SiteSentry helped you, a ⭐ is appreciated.
+
 ## License
 
-MIT © Victor Barbuta
+MIT © 2026 Victor Barbuta

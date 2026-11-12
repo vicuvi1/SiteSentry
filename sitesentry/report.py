@@ -48,7 +48,7 @@ def to_console(result: ScanResult, color: bool | None = None) -> str:
 
     lines = [
         "",
-        c("1", "SiteSentry scan report"),
+        c("1", "SiteSentry scan report") + c("90", "  -  made by Victor Barbuta"),
         f"  Target : {result.final_url}",
         f"  Time   : {result.started_at} ({result.duration_seconds:.1f}s)",
         f"  Grade  : {c('1;' + grade_code, result.grade)}  ({result.score}/100)",

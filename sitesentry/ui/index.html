@@ -153,6 +153,8 @@ details[open] .chev{transform:rotate(90deg)}
 .how .i svg{width:18px;height:18px}
 footer{border-top:1px solid var(--border);padding:22px 0;color:var(--faint);font-size:12.5px;text-align:center}
 
+.credit{font-size:13.5px;color:var(--muted);margin-bottom:6px}
+.credit a{font-weight:700}
 .top-right{display:flex;align-items:center;gap:10px}
 .theme{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);display:flex;align-items:center;justify-content:center}
 .theme:hover{color:var(--text)} .theme svg{width:18px;height:18px}
@@ -240,7 +242,10 @@ body.report #results{display:block;padding-top:28px}
 </main>
 
 <footer>
-  <div class="wrap">SiteSentry only sends normal web requests, the same as a browser visit. Scan only sites you own or have permission to test.</div>
+  <div class="wrap">
+    <div class="credit">Made by <a href="https://github.com/vicuvi1/SiteSentry" target="_blank" rel="noopener noreferrer">Victor Barbuta</a></div>
+    SiteSentry only sends normal web requests, the same as a browser visit. Scan only sites you own or have permission to test.
+  </div>
 </footer>
 
 <script>

@@ -73,7 +73,7 @@ def serve(host: str = "127.0.0.1", port: int = 8765, open_browser: bool = True, 
     httpd.scan_timeout = timeout  # type: ignore[attr-defined]
     shown = "127.0.0.1" if host in ("0.0.0.0", "::") else host
     address = f"http://{shown}:{httpd.server_address[1]}/"
-    print(f"\n  SiteSentry is running at {address}\n  Press Ctrl+C to stop.\n", flush=True)
+    print(f"\n  SiteSentry, made by Victor Barbuta\n  Running at {address}\n  Press Ctrl+C to stop.\n", flush=True)
     if open_browser:
         threading.Timer(0.6, lambda: webbrowser.open(address)).start()
     try:
