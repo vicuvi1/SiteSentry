@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sitesentry"
+version = "1.0.0"
+description = "Passive website security scanner with a web UI: HTTPS, TLS, security headers, cookies, CORS and information leaks."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = []
+keywords = ["security", "scanner", "tls", "http-headers", "owasp", "appsec"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Topic :: Security",
+  "Environment :: Console",
+  "Environment :: Web Environment",
+]
+
+[project.scripts]
+sitesentry = "sitesentry.cli:main"
+
+[tool.setuptools]
+packages = ["sitesentry", "sitesentry.checks"]
+
+[tool.setuptools.package-data]
+sitesentry = ["ui/*.html"]

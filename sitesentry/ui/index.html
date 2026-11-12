@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SiteSentry</title>
+<meta name="description" content="SiteSentry: a passive website security scanner.">
+<!--REPORT_DATA-->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234f46e5' d='M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3z'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --surface-2:#f1f3f9; --border:#e3e6ef;
+  --text:#121826; --muted:#5b6478; --faint:#8a92a6;
+  --accent:#4f46e5; --accent-2:#6366f1; --accent-soft:#eef0ff;
+  --pass:#16a34a; --pass-soft:#e8f7ee;
+  --warn:#d97706; --warn-soft:#fdf3e2;
+  --fail:#dc2626; --fail-soft:#fdecec;
+  --info:#64748b; --info-soft:#eef1f5;
+  --crit:#9f1239;
+  --shadow:0 1px 2px rgba(16,24,40,.04),0 4px 16px rgba(16,24,40,.06);
+  --radius:14px;
+  --mono:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b0f17; --surface:#121826; --surface-2:#182033; --border:#243049;
+    --text:#e8ecf4; --muted:#a3adc2; --faint:#76819a;
+    --accent:#818cf8; --accent-2:#a5b4fc; --accent-soft:#1d2140;
+    --pass:#4ade80; --pass-soft:#0f2a1b;
+    --warn:#fbbf24; --warn-soft:#2c2210;
+    --fail:#f87171; --fail-soft:#2e1416;
+    --info:#94a3b8; --info-soft:#1a2232;
+    --crit:#fb7185;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+header.top{padding:22px 0;border-bottom:1px solid var(--border);background:var(--surface)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-.01em}
+.brand svg{width:28px;height:28px}
+.brand small{display:block;font-weight:500;font-size:12px;color:var(--muted);letter-spacing:0}
+.tag{font-size:12px;color:var(--muted);border:1px solid var(--border);padding:4px 10px;border-radius:999px;white-space:nowrap}
+
+.hero{padding:56px 0 28px;text-align:center}
+.hero h1{font-size:clamp(28px,4.5vw,40px);line-height:1.15;letter-spacing:-.025em;margin:0 0 10px}
+.hero p{color:var(--muted);margin:0 auto 28px;max-width:560px}
+form.scan{display:flex;gap:10px;max-width:640px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:8px;box-shadow:var(--shadow)}
+form.scan:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft),var(--shadow)}
+form.scan input[type=text]{flex:1;min-width:0;border:0;background:transparent;color:var(--text);font-size:16px;padding:10px 12px;outline:none}
+button{font:inherit;cursor:pointer}
+.btn{border:0;border-radius:10px;padding:10px 20px;font-weight:600;background:var(--accent);color:#fff;transition:transform .05s,opacity .15s}
+.btn:hover{opacity:.92}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.55;cursor:default}
+.btn.ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.opts{margin-top:14px;font-size:13px;color:var(--muted);display:flex;justify-content:center;gap:8px;align-items:center}
+.opts input{accent-color:var(--accent)}
+.examples{margin-top:10px;font-size:13px;color:var(--faint)}
+.examples button{background:none;border:0;color:var(--accent);padding:0 4px;font-size:13px}
+.error{max-width:640px;margin:18px auto 0;background:var(--fail-soft);color:var(--fail);border-radius:12px;padding:12px 16px;font-size:14px;display:none;text-align:left}
+
+.loading{display:none;max-width:420px;margin:36px auto;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)}
+.loading h3{margin:0 0 14px;font-size:15px}
+.steps{list-style:none;margin:0;padding:0;font-size:14px}
+.steps li{display:flex;align-items:center;gap:10px;padding:5px 0;color:var(--faint)}
+.steps li.active{color:var(--text)} .steps li.done{color:var(--muted)}
+.dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);flex:none;position:relative}
+li.active .dot{border-color:var(--accent);border-top-color:transparent;animation:spin .8s linear infinite}
+li.done .dot{background:var(--pass);border-color:var(--pass)}
+li.done .dot::after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+#results{display:none;padding:12px 0 56px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.summary{display:grid;grid-template-columns:auto 1fr;gap:28px;padding:28px;align-items:center}
+.ring{position:relative;width:132px;height:132px}
+.ring svg{transform:rotate(-90deg)}
+.ring .grade{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .grade b{font-size:40px;line-height:1;letter-spacing:-.03em}
+.ring .grade span{font-size:12px;color:var(--muted);margin-top:4px}
+.meta h2{margin:0 0 4px;font-size:20px;letter-spacing:-.01em;word-break:break-all}
+.meta .sub{color:var(--muted);font-size:13px;margin-bottom:16px}
+.verdict{font-size:15px;margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;padding:5px 12px;border-radius:999px}
+.chip.pass{background:var(--pass-soft);color:var(--pass)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.fail{background:var(--fail-soft);color:var(--fail)}
+.chip.info{background:var(--info-soft);color:var(--info)}
+.actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.actions .btn{padding:8px 14px;font-size:13px}
+
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:34px 0 12px;flex-wrap:wrap}
+.section-title h3{margin:0;font-size:17px;letter-spacing:-.01em}
+.priorities{padding:6px 0}
+.prio{display:flex;gap:14px;padding:14px 22px;border-top:1px solid var(--border)}
+.prio:first-child{border-top:0}
+.prio .num{flex:none;width:26px;height:26px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+.prio b{display:block;font-size:14px}
+.prio p{margin:2px 0 0;color:var(--muted);font-size:13.5px}
+.empty{padding:22px;color:var(--muted);text-align:center}
+
+.tabs{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px;gap:2px}
+.tabs button{border:0;background:transparent;color:var(--muted);padding:6px 12px;border-radius:8px;font-size:13px;font-weight:600}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.group{margin-bottom:14px;overflow:hidden}
+.group h4{margin:0;padding:12px 20px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border)}
+details.f{border-top:1px solid var(--border)}
+details.f:first-of-type{border-top:0}
+details.f summary{list-style:none;display:flex;align-items:flex-start;gap:12px;padding:14px 20px;cursor:pointer}
+details.f summary::-webkit-details-marker{display:none}
+details.f summary:hover{background:var(--surface-2)}
+.ico{flex:none;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.ico svg{width:13px;height:13px}
+.ico.pass{background:var(--pass-soft);color:var(--pass)}
+.ico.warn{background:var(--warn-soft);color:var(--warn)}
+.ico.fail{background:var(--fail-soft);color:var(--fail)}
+.ico.info{background:var(--info-soft);color:var(--info)}
+.ft{flex:1;min-width:0}
+.ft .t{font-weight:600;font-size:14.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ft .d{color:var(--muted);font-size:13.5px;margin-top:2px}
+.sev{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:6px}
+.sev.critical{background:var(--crit);color:#fff}
+.sev.high{background:var(--fail-soft);color:var(--fail)}
+.sev.medium{background:var(--warn-soft);color:var(--warn)}
+.sev.low{background:var(--info-soft);color:var(--info)}
+.chev{flex:none;color:var(--faint);transition:transform .15s;margin-top:3px}
+details[open] .chev{transform:rotate(90deg)}
+.body{padding:0 20px 16px 54px;font-size:13.5px}
+.body .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin:10px 0 4px}
+.body .fix{background:var(--accent-soft);border-radius:10px;padding:10px 12px}
+.body code{display:block;font-family:var(--mono);font-size:12.5px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;white-space:pre-wrap;word-break:break-all;color:var(--text)}
+.notes{font-size:13px;color:var(--muted);padding:14px 20px}
+.notes div{word-break:break-all}
+
+.how{padding:12px 0 60px}
+.how .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.how .card{padding:20px}
+.how h4{margin:8px 0 4px;font-size:15px}
+.how p{margin:0;color:var(--muted);font-size:13.5px}
+.how .i{width:34px;height:34px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.how .i svg{width:18px;height:18px}
+footer{border-top:1px solid var(--border);padding:22px 0;color:var(--faint);font-size:12.5px;text-align:center}
+
+body.report .hero,body.report .how{display:none}
+body.report #results{display:block;padding-top:28px}
+@media (max-width:640px){
+  .summary{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .chips,.actions{justify-content:center}
+  .how .grid{grid-template-columns:1fr}
+  form.scan{flex-direction:column}
+  .body{padding-left:20px}
+  .tag{display:none}
+}
+@media print{
+  header.top .tag,.actions,.tabs,.hero,.how{display:none!important}
+  details.f .body{display:block}
+  body{background:#fff}
+  .card{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--accent)" d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3z"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+      <div>SiteSentry<small>Website security scanner</small></div>
+    </div>
+    <span class="tag">Passive &amp; non-intrusive</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" id="hero">
+    <h1>How secure is your website?</h1>
+    <p>Check HTTPS, TLS, security headers, cookies, CORS and information leaks in seconds. You get a grade and a plain-English fix for every issue.</p>
+    <form class="scan" id="form" autocomplete="off">
+      <input type="text" id="url" placeholder="example.com" aria-label="Website address" required>
+      <button class="btn" id="go" type="submit">Scan site</button>
+    </form>
+    <div class="opts">
+      <input type="checkbox" id="ports"><label for="ports">I own this site, so also check for exposed service ports</label>
+    </div>
+    <div class="examples">Try: <button type="button" data-ex="example.com">example.com</button><button type="button" data-ex="github.com">github.com</button><button type="button" data-ex="http://neverssl.com">neverssl.com</button></div>
+    <div class="error" id="error"></div>
+  </section>
+
+  <div class="loading wrap" id="loading">
+    <h3>Scanning <span id="scanning-host"></span>…</h3>
+    <ul class="steps" id="steps"></ul>
+  </div>
+
+  <section id="results" class="wrap" aria-live="polite"></section>
+
+  <section class="how wrap" id="how">
+    <div class="grid">
+      <div class="card"><div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h4>Transport &amp; TLS</h4><p>HTTPS, redirects, certificate validity and expiry, TLS version, legacy protocols.</p></div>
+      <div class="card"><div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 4.5 3.2 8.4 8 9 4.8-.6 8-4.5 8-9V6z"/></svg></div><h4>Browser defences</h4><p>CSP, HSTS, clickjacking, MIME sniffing, referrer and permissions policies.</p></div>
+      <div class="card"><div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h4>Leaks &amp; misconfig</h4><p>Cookie flags, CORS trust, version banners, mixed content, security.txt.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">SiteSentry only sends normal web requests, the same as a browser visit. Scan only sites you own or have permission to test.</div>
+</footer>
+
+<script>
+(() => {
+  const REPORT = window.__SITESENTRY_REPORT__ || null;
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const ICONS = {
+    pass:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>',
+    fail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+    warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M12 5v9M12 19h.01"/></svg>',
+    info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M12 11v7M12 6h.01"/></svg>'
+  };
+  const SEV_RANK = {critical:0, high:1, medium:2, low:3, info:4};
+  const STATUS_RANK = {fail:0, warn:1, info:2, pass:3};
+  const CAT_ORDER = ["Transport","TLS","Security headers","Cookies","CORS","Information disclosure","Exposed services","Best practice"];
+  const STEPS = ["Connecting over HTTPS","Following redirects","Reading security headers","Checking cookies and CORS","Inspecting the TLS certificate","Looking for information leaks","Calculating grade"];
+
+  function gradeColor(g){
+    if (g.startsWith("A")) return "var(--pass)";
+    if (g === "B") return "#65a30d";
+    if (g === "C") return "var(--warn)";
+    if (g === "D") return "#ea580c";
+    return "var(--fail)";
+  }
+  function verdict(r){
+    const g = r.grade;
+    if (g === "A+") return "Excellent. This site follows modern security best practices.";
+    if (g === "A") return "Strong setup with only minor improvements left.";
+    if (g === "B") return "Decent, but a few missing protections are worth fixing.";
+    if (g === "C") return "Several important protections are missing.";
+    if (g === "D") return "Weak configuration. Visitors are exposed to avoidable risks.";
+    return "Serious problems found. Fix the critical issues first.";
+  }
+
+  function renderFinding(f){
+    const sev = (f.status === "fail" || f.status === "warn") && f.severity !== "info"
+      ? `<span class="sev ${f.severity}">${f.severity}</span>` : "";
+    const body = [
+      f.recommendation ? `<div class="lbl">How to fix</div><div class="fix">${esc(f.recommendation)}</div>` : "",
+      f.evidence ? `<div class="lbl">Evidence</div><code>${esc(f.evidence)}</code>` : "",
+      f.reference ? `<div class="lbl">Learn more</div><a href="${esc(f.reference)}" target="_blank" rel="noopener noreferrer">${esc(f.reference.replace(/^https?:\/\//,""))}</a>` : ""
+    ].join("");
+    return `<details class="f" data-status="${f.status}">
+      <summary>
+        <span class="ico ${f.status}">${ICONS[f.status]}</span>
+        <span class="ft"><span class="t">${esc(f.title)} ${sev}</span><span class="d">${esc(f.detail)}</span></span>
+        ${body ? '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 6 6 6-6 6"/></svg>' : ""}
+      </summary>
+      ${body ? `<div class="body">${body}</div>` : ""}
+    </details>`;
+  }
+
+  function render(r){
+    const c = r.counts;
+    const C = 2 * Math.PI * 56;
+    const problems = r.findings.filter(f => f.status === "fail" || f.status === "warn")
+      .sort((a,b) => SEV_RANK[a.severity]-SEV_RANK[b.severity] || STATUS_RANK[a.status]-STATUS_RANK[b.status]);
+    const top = problems.filter(f => f.severity !== "info").slice(0, 3);
+
+    const groups = {};
+    r.findings.forEach(f => (groups[f.category] ||= []).push(f));
+    const cats = Object.keys(groups).sort((a,b) => (CAT_ORDER.indexOf(a)+99)%99 - (CAT_ORDER.indexOf(b)+99)%99);
+
+    $("#results").innerHTML = `
+      <div class="card summary">
+        <div class="ring">
+          <svg width="132" height="132" viewBox="0 0 132 132">
+            <circle cx="66" cy="66" r="56" fill="none" stroke="var(--surface-2)" stroke-width="12"/>
+            <circle id="arc" cx="66" cy="66" r="56" fill="none" stroke="${gradeColor(r.grade)}" stroke-width="12" stroke-linecap="round"
+              stroke-dasharray="${C}" stroke-dashoffset="${C}" style="transition:stroke-dashoffset 1s ease"/>
+          </svg>
+          <div class="grade"><b style="color:${gradeColor(r.grade)}">${esc(r.grade)}</b><span>${r.score} / 100</span></div>
+        </div>
+        <div class="meta">
+          <h2>${esc(r.final_url)}</h2>
+          <div class="sub">Scanned ${esc(r.started_at)} · ${r.duration_seconds}s · ${r.findings.length} checks</div>
+          <p class="verdict">${verdict(r)}</p>
+          <div class="chips">
+            <span class="chip pass">${c.pass} passed</span>
+            <span class="chip warn">${c.warn} warnings</span>
+            <span class="chip fail">${c.fail} failed</span>
+            ${c.info ? `<span class="chip info">${c.info} info</span>` : ""}
+          </div>
+          <div class="actions">
+            ${REPORT ? '<button class="btn ghost" id="print">Print / save as PDF</button>' :
+              '<button class="btn" id="dl-html">Download report</button><button class="btn ghost" id="dl-json">Export JSON</button><button class="btn ghost" id="again">Scan another site</button>'}
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title"><h3>Fix these first</h3></div>
+      <div class="card priorities">
+        ${top.length ? top.map((f,i) => `<div class="prio"><div class="num">${i+1}</div><div><b>${esc(f.title)} <span class="sev ${f.severity}">${f.severity}</span></b><p>${esc(f.recommendation || f.detail)}</p></div></div>`).join("")
+          : '<div class="empty">Nothing important to fix. Nice work.</div>'}
+      </div>
+
+      <div class="section-title">
+        <h3>All checks</h3>
+        <div class="tabs" role="tablist">
+          <button class="on" data-filter="all">All (${r.findings.length})</button>
+          <button data-filter="issues">Issues (${problems.length})</button>
+          <button data-filter="pass">Passed (${c.pass})</button>
+        </div>
+      </div>
+      ${cats.map(cat => `<div class="card group" data-group><h4>${esc(cat)}</h4>${
+        groups[cat].sort((a,b) => STATUS_RANK[a.status]-STATUS_RANK[b.status] || SEV_RANK[a.severity]-SEV_RANK[b.severity]).map(renderFinding).join("")
+      }</div>`).join("")}
+      ${r.notes && r.notes.length ? `<div class="card group"><h4>Scan notes</h4><div class="notes">${r.notes.map(n => `<div>${esc(n)}</div>`).join("")}</div></div>` : ""}
+    `;
+    setTimeout(() => {
+      const arc = $("#arc"); if (arc) arc.style.strokeDashoffset = C * (1 - Math.max(r.score, 1) / 100);
+    }, 60);
+
+    document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+      document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+      const mode = b.dataset.filter;
+      document.querySelectorAll("details.f").forEach(d => {
+        const s = d.dataset.status;
+        d.style.display = mode === "all" || (mode === "pass" && s === "pass") || (mode === "issues" && (s === "fail" || s === "warn")) ? "" : "none";
+      });
+      document.querySelectorAll("[data-group]").forEach(g => {
+        g.style.display = [...g.querySelectorAll("details.f")].some(d => d.style.display !== "none") ? "" : "none";
+      });
+    });
+
+    const p = $("#print"); if (p) p.onclick = () => { document.querySelectorAll("details.f").forEach(d => d.open = true); window.print(); };
+    const a = $("#again"); if (a) a.onclick = () => { $("#results").style.display = "none"; $("#how").style.display = ""; $("#url").select(); window.scrollTo({top:0, behavior:"smooth"}); };
+    const dj = $("#dl-json"); if (dj) dj.onclick = () => download(JSON.stringify(r, null, 2), "application/json", "json", r);
+    const dh = $("#dl-html"); if (dh) dh.onclick = async () => {
+      const page = await (await fetch("/")).text();
+      const data = JSON.stringify(r).replace(/</g, "\\u003c");
+      download(page.replace("<!-" + "-REPORT_DATA-" + "->", `<script>window.__SITESENTRY_REPORT__=${data};<\/script>`), "text/html", "html", r);
+    };
+  }
+
+  function download(content, type, ext, r){
+    const host = (r.final_url.match(/^https?:\/\/([^/:]+)/) || [,"site"])[1];
+    const blob = new Blob([content], {type});
+    const link = Object.assign(document.createElement("a"), {href: URL.createObjectURL(blob), download: `sitesentry-${host}.${ext}`});
+    document.body.appendChild(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  }
+
+  if (REPORT) {
+    document.body.classList.add("report");
+    document.title = `SiteSentry report: ${REPORT.final_url}`;
+    render(REPORT);
+    return;
+  }
+
+  let timer = null;
+  function startSteps(host){
+    $("#scanning-host").textContent = host;
+    $("#steps").innerHTML = STEPS.map(s => `<li><span class="dot"></span>${s}</li>`).join("");
+    const items = [...document.querySelectorAll("#steps li")];
+    let i = 0; items[0].classList.add("active");
+    timer = setInterval(() => {
+      if (i < items.length - 1) { items[i].classList.replace("active","done"); items[++i].classList.add("active"); }
+    }, 900);
+  }
+  function stopSteps(){ clearInterval(timer); }
+
+  document.querySelectorAll("[data-ex]").forEach(b => b.onclick = () => { $("#url").value = b.dataset.ex; $("#form").requestSubmit(); });
+
+  $("#form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const url = $("#url").value.trim();
+    if (!url) return;
+    $("#error").style.display = "none";
+    $("#results").style.display = "none";
+    $("#how").style.display = "none";
+    $("#loading").style.display = "block";
+    $("#go").disabled = true; $("#go").textContent = "Scanning…";
+    startSteps(url.replace(/^https?:\/\//, "").split("/")[0]);
+    try {
+      const qs = new URLSearchParams({url, ports: $("#ports").checked ? "1" : "0"});
+      const res = await fetch(`/api/scan?${qs}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Scan failed.");
+      render(data);
+      $("#results").style.display = "block";
+      $("#results").scrollIntoView({behavior:"smooth", block:"start"});
+    } catch (err) {
+      $("#error").textContent = err.message === "Failed to fetch" ? "Lost connection to the SiteSentry server. Is it still running?" : err.message;
+      $("#error").style.display = "block";
+      $("#how").style.display = "";
+    } finally {
+      stopSteps();
+      $("#loading").style.display = "none";
+      $("#go").disabled = false; $("#go").textContent = "Scan site";
+    }
+  });
+  $("#url").focus();
+})();
+</script>
+</body>
+</html>
