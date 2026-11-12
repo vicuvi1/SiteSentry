@@ -8,7 +8,7 @@ from typing import Callable
 from urllib.parse import urlsplit, urlunsplit
 
 from . import scoring
-from .checks import content, cookies, cors, disclosure, headers, misc, tls, transport
+from .checks import content, cookies, cors, disclosure, email_dns, headers, misc, tls, transport
 from .models import Finding, ScanResult
 from .net import FetchError, HttpResponse, fetch_chain, request
 
@@ -36,6 +36,7 @@ def scan(
     *,
     timeout: float = 10.0,
     check_ports: bool = False,
+    check_dns: bool = True,
     log: Callable[[str], None] | None = None,
 ) -> ScanResult:
     log = log or (lambda _msg: None)
@@ -110,6 +111,10 @@ def scan(
             request(origin + "/.well-known/security.txt", timeout=timeout, verify=cert_ok)))
     except (FetchError, ssl.SSLError):
         findings.append(misc.security_txt(None))
+
+    if check_dns:
+        log("Checking SPF, DMARC and CAA records")
+        findings += email_dns.run(host, timeout=min(timeout, 4.0))
 
     if check_ports:
         log("Probing commonly abused service ports")

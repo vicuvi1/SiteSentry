@@ -23,3 +23,15 @@ jobs:
         run: |
           pip install .
           sitesentry --version
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Build image
+        run: docker build -t sitesentry .
+      - name: Smoke-test image (runs as non-root)
+        run: |
+          docker run --rm sitesentry --version
+          test "$(docker run --rm --entrypoint id sitesentry -u)" != "0"
+          docker run --rm sitesentry --help | grep -q -- "--serve"

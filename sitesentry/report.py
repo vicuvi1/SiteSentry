@@ -10,7 +10,7 @@ from .models import ScanResult, Status
 
 PLACEHOLDER = "<!--REPORT_DATA-->"
 CATEGORY_ORDER = ["Transport", "TLS", "Security headers", "Cookies", "CORS",
-                  "Information disclosure", "Exposed services", "Best practice"]
+                  "Information disclosure", "Email & DNS", "Exposed services", "Best practice"]
 
 
 def ui_page() -> str:

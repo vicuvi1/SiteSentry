@@ -21,12 +21,15 @@ def build_parser() -> argparse.ArgumentParser:
     )
     p.add_argument("target", nargs="?", help="website to scan, e.g. example.com or https://example.com/login")
     p.add_argument("--serve", action="store_true", help="start the local web interface")
+    p.add_argument("--host", default="127.0.0.1",
+                   help="address for --serve (default 127.0.0.1; use 0.0.0.0 inside Docker)")
     p.add_argument("--port", type=int, default=8765, help="port for --serve (default 8765)")
     p.add_argument("--no-browser", action="store_true", help="with --serve: don't open a browser automatically")
     p.add_argument("--html", metavar="FILE", help="write a standalone HTML report")
     p.add_argument("--json", metavar="FILE", help="write results as JSON ('-' for stdout)")
     p.add_argument("--ports", action="store_true",
                    help="also check commonly abused service ports (only on hosts you own)")
+    p.add_argument("--no-dns", action="store_true", help="skip the SPF / DMARC / CAA DNS checks")
     p.add_argument("--timeout", type=float, default=10.0, help="network timeout in seconds (default 10)")
     p.add_argument("--fail-under", metavar="GRADE", choices=GRADE_ORDER,
                    help="exit with code 1 if the grade is below this (for CI pipelines)")
@@ -40,7 +43,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.serve:
         from .web import serve
-        serve(port=args.port, open_browser=not args.no_browser, timeout=args.timeout)
+        serve(host=args.host, port=args.port, open_browser=not args.no_browser, timeout=args.timeout)
         return 0
     if not args.target:
         build_parser().print_help()
@@ -49,7 +52,8 @@ def main(argv: list[str] | None = None) -> int:
     quiet = args.json == "-"
     log = (lambda _m: None) if quiet else (lambda m: print(f"  ... {m}", file=sys.stderr, flush=True))
     try:
-        result = scan(args.target, timeout=args.timeout, check_ports=args.ports, log=log)
+        result = scan(args.target, timeout=args.timeout, check_ports=args.ports,
+                      check_dns=not args.no_dns, log=log)
     except ValueError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

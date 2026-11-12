@@ -21,8 +21,16 @@
   --radius:14px;
   --mono:ui-monospace,SFMono-Regular,"Cascadia Code",Consolas,monospace;
 }
+:root[data-theme="dark"]{
+  --bg:#0b0f17; --surface:#121826; --surface-2:#182033; --border:#243049;
+  --text:#e8ecf4; --muted:#a3adc2; --faint:#76819a;
+  --accent:#818cf8; --accent-2:#a5b4fc; --accent-soft:#1d2140;
+  --pass:#4ade80; --pass-soft:#0f2a1b; --warn:#fbbf24; --warn-soft:#2c2210;
+  --fail:#f87171; --fail-soft:#2e1416; --info:#94a3b8; --info-soft:#1a2232; --crit:#fb7185;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
 @media (prefers-color-scheme: dark){
-  :root{
+  :root:not([data-theme="light"]){
     --bg:#0b0f17; --surface:#121826; --surface-2:#182033; --border:#243049;
     --text:#e8ecf4; --muted:#a3adc2; --faint:#76819a;
     --accent:#818cf8; --accent-2:#a5b4fc; --accent-soft:#1d2140;
@@ -145,6 +153,25 @@ details[open] .chev{transform:rotate(90deg)}
 .how .i svg{width:18px;height:18px}
 footer{border-top:1px solid var(--border);padding:22px 0;color:var(--faint);font-size:12.5px;text-align:center}
 
+.top-right{display:flex;align-items:center;gap:10px}
+.theme{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);display:flex;align-items:center;justify-content:center}
+.theme:hover{color:var(--text)} .theme svg{width:18px;height:18px}
+.theme .sun{display:none}
+:root[data-dark="1"] .theme .sun{display:block} :root[data-dark="1"] .theme .moon{display:none}
+.recent{margin-top:14px;display:none;justify-content:center;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--faint);align-items:center}
+.recent button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:999px;padding:4px 10px 4px 4px;font-size:12.5px}
+.recent button:hover{border-color:var(--accent)}
+.recent b{font-size:11px;color:#fff;border-radius:999px;padding:2px 7px;min-width:28px;text-align:center}
+.recent .clear{border:0;background:none;color:var(--faint);padding:4px}
+
+.fixgen{overflow:hidden}
+.fixgen .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface-2);flex-wrap:wrap}
+.fixgen .hint{font-size:12.5px;color:var(--muted)}
+.fixgen pre{margin:0;padding:18px 20px;font-family:var(--mono);font-size:12.5px;line-height:1.65;overflow-x:auto;color:var(--text);background:var(--surface)}
+.fixgen pre .c{color:var(--faint)}
+.copy{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:600}
+.copy.done{color:var(--pass);border-color:var(--pass)}
+
 body.report .hero,body.report .how{display:none}
 body.report #results{display:block;padding-top:28px}
 @media (max-width:640px){
@@ -170,7 +197,13 @@ body.report #results{display:block;padding-top:28px}
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--accent)" d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3z"/><path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m8.5 12 2.5 2.5 4.5-5"/></svg>
       <div>SiteSentry<small>Website security scanner</small></div>
     </div>
-    <span class="tag">Passive &amp; non-intrusive</span>
+    <div class="top-right">
+      <span class="tag">Passive &amp; non-intrusive</span>
+      <button class="theme" id="theme" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -186,6 +219,7 @@ body.report #results{display:block;padding-top:28px}
       <input type="checkbox" id="ports"><label for="ports">I own this site, so also check for exposed service ports</label>
     </div>
     <div class="examples">Try: <button type="button" data-ex="example.com">example.com</button><button type="button" data-ex="github.com">github.com</button><button type="button" data-ex="http://neverssl.com">neverssl.com</button></div>
+    <div class="recent" id="recent"></div>
     <div class="error" id="error"></div>
   </section>
 
@@ -200,7 +234,7 @@ body.report #results{display:block;padding-top:28px}
     <div class="grid">
       <div class="card"><div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><h4>Transport &amp; TLS</h4><p>HTTPS, redirects, certificate validity and expiry, TLS version, legacy protocols.</p></div>
       <div class="card"><div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3 4 6v6c0 4.5 3.2 8.4 8 9 4.8-.6 8-4.5 8-9V6z"/></svg></div><h4>Browser defences</h4><p>CSP, HSTS, clickjacking, MIME sniffing, referrer and permissions policies.</p></div>
-      <div class="card"><div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h4>Leaks &amp; misconfig</h4><p>Cookie flags, CORS trust, version banners, mixed content, security.txt.</p></div>
+      <div class="card"><div class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h4>Leaks, email &amp; DNS</h4><p>Cookie flags, CORS trust, version banners, SPF, DMARC and CAA records.</p></div>
     </div>
   </section>
 </main>
@@ -222,8 +256,133 @@ body.report #results{display:block;padding-top:28px}
   };
   const SEV_RANK = {critical:0, high:1, medium:2, low:3, info:4};
   const STATUS_RANK = {fail:0, warn:1, info:2, pass:3};
-  const CAT_ORDER = ["Transport","TLS","Security headers","Cookies","CORS","Information disclosure","Exposed services","Best practice"];
-  const STEPS = ["Connecting over HTTPS","Following redirects","Reading security headers","Checking cookies and CORS","Inspecting the TLS certificate","Looking for information leaks","Calculating grade"];
+  const CAT_ORDER = ["Transport","TLS","Security headers","Cookies","CORS","Information disclosure","Email & DNS","Exposed services","Best practice"];
+  const STEPS = ["Connecting over HTTPS","Following redirects","Reading security headers","Checking cookies and CORS","Inspecting the TLS certificate","Looking for information leaks","Checking SPF, DMARC and CAA","Calculating grade"];
+
+  const store = {
+    get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+    set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+
+  /* ---------- theme ---------- */
+  const root = document.documentElement;
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function applyTheme(t){
+    if (t) root.dataset.theme = t; else delete root.dataset.theme;
+    root.dataset.dark = (t ? t === "dark" : mq.matches) ? "1" : "0";
+  }
+  applyTheme(store.get("sitesentry.theme", null));
+  mq.addEventListener?.("change", () => applyTheme(store.get("sitesentry.theme", null)));
+  $("#theme").onclick = () => { const t = root.dataset.dark === "1" ? "light" : "dark"; store.set("sitesentry.theme", t); applyTheme(t); };
+
+  /* ---------- copy-paste fix generator ---------- */
+  const HEADER_FIXES = {
+    "headers.hsts": ["Strict-Transport-Security", "max-age=31536000; includeSubDomains"],
+    "headers.csp": ["Content-Security-Policy", "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'"],
+    "headers.clickjacking": ["X-Frame-Options", "SAMEORIGIN"],
+    "headers.nosniff": ["X-Content-Type-Options", "nosniff"],
+    "headers.referrer": ["Referrer-Policy", "strict-origin-when-cross-origin"],
+    "headers.permissions": ["Permissions-Policy", "camera=(), microphone=(), geolocation=()"],
+  };
+  const FIXABLE = new Set([...Object.keys(HEADER_FIXES), "disclosure.server", "disclosure.tech", "transport.redirect"]);
+  const CSP_NOTE = "CSP can break inline scripts: test with Content-Security-Policy-Report-Only first";
+
+  function buildConfig(kind, ids, host){
+    const hs = Object.keys(HEADER_FIXES).filter(id => ids.has(id)).map(id => HEADER_FIXES[id]);
+    const has = id => ids.has(id);
+    const L = [];
+    if (kind === "nginx") {
+      L.push("# nginx: inside your HTTPS server { } block");
+      if (has("headers.csp")) L.push(`# ${CSP_NOTE}`);
+      hs.forEach(([k,v]) => L.push(`add_header ${k} "${v}" always;`));
+      if (has("disclosure.server")) L.push("server_tokens off;               # hide the nginx version");
+      if (has("disclosure.tech")) L.push("proxy_hide_header X-Powered-By;  # hide backend fingerprint");
+      if (has("transport.redirect")) L.push("", "# Redirect all HTTP traffic to HTTPS", "server {", "    listen 80;", `    server_name ${host};`, "    return 301 https://$host$request_uri;", "}");
+    } else if (kind === "apache") {
+      L.push("# Apache: in your <VirtualHost *:443> or .htaccess (requires mod_headers)");
+      if (has("headers.csp")) L.push(`# ${CSP_NOTE}`);
+      hs.forEach(([k,v]) => L.push(`Header always set ${k} "${v}"`));
+      if (has("disclosure.tech")) L.push("Header unset X-Powered-By");
+      if (has("disclosure.server")) L.push("", "# In httpd.conf / apache2.conf", "ServerTokens Prod", "ServerSignature Off");
+      if (has("transport.redirect")) L.push("", "# Redirect HTTP to HTTPS (requires mod_rewrite)", "RewriteEngine On", "RewriteCond %{HTTPS} off", "RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]");
+    } else if (kind === "caddy") {
+      L.push("# Caddyfile (Caddy enables HTTPS and the HTTP->HTTPS redirect automatically)", `${host} {`, "    header {");
+      if (has("headers.csp")) L.push(`        # ${CSP_NOTE}`);
+      hs.forEach(([k,v]) => L.push(`        ${k} "${v}"`));
+      if (has("disclosure.server")) L.push("        -Server");
+      if (has("disclosure.tech")) L.push("        -X-Powered-By");
+      L.push("    }", "    # ... your existing directives", "}");
+    } else {
+      L.push("// Express (Node.js): add before your routes", "// Tip: the 'helmet' package sets most of these for you.");
+      if (has("disclosure.tech") || has("disclosure.server")) L.push('app.disable("x-powered-by");');
+      if (hs.length) {
+        L.push("app.use((req, res, next) => {");
+        if (has("headers.csp")) L.push(`  // ${CSP_NOTE}`);
+        hs.forEach(([k,v]) => L.push(`  res.setHeader(${JSON.stringify(k)}, ${JSON.stringify(v)});`));
+        L.push("  next();", "});");
+      }
+      if (has("transport.redirect")) L.push("", "// Redirect HTTP to HTTPS (behind a proxy, also call app.set('trust proxy', 1))", "app.use((req, res, next) => req.secure ? next() : res.redirect(301, `https://${req.headers.host}${req.url}`));");
+    }
+    return L.join("\n");
+  }
+
+  function highlight(code){
+    return code.split("\n").map(line => /^\s*(#|\/\/)/.test(line)
+      ? `<span class="c">${esc(line)}</span>`
+      : esc(line).replace(/(\s)(#\s.*)$/, '$1<span class="c">$2</span>')).join("\n");
+  }
+
+  function renderFixgen(r){
+    const ids = new Set(r.findings.filter(f => (f.status === "fail" || f.status === "warn") && FIXABLE.has(f.check_id)).map(f => f.check_id));
+    if (!ids.size) return "";
+    const host = (r.final_url.match(/^https?:\/\/([^/:]+)/) || [,"example.com"])[1];
+    const kinds = {nginx:"nginx", apache:"Apache", caddy:"Caddy", express:"Express"};
+    setTimeout(() => {
+      const pre = $("#fix-code"), copy = $("#fix-copy");
+      let current = store.get("sitesentry.server", "nginx");
+      const show = k => {
+        current = k; store.set("sitesentry.server", k);
+        document.querySelectorAll("[data-kind]").forEach(b => b.classList.toggle("on", b.dataset.kind === k));
+        pre.innerHTML = highlight(buildConfig(k, ids, host));
+      };
+      document.querySelectorAll("[data-kind]").forEach(b => b.onclick = () => show(b.dataset.kind));
+      copy.onclick = async () => {
+        const text = buildConfig(current, ids, host);
+        try { await navigator.clipboard.writeText(text); }
+        catch { const t = Object.assign(document.createElement("textarea"), {value: text}); document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove(); }
+        copy.classList.add("done"); copy.textContent = "Copied!";
+        setTimeout(() => { copy.classList.remove("done"); copy.textContent = "Copy"; }, 1600);
+      };
+      show(kinds[current] ? current : "nginx");
+    }, 0);
+    return `
+      <div class="section-title"><h3>Fix it: copy-paste config</h3>
+        <div class="tabs">${Object.entries(kinds).map(([k,v]) => `<button data-kind="${k}">${v}</button>`).join("")}</div>
+      </div>
+      <div class="card fixgen">
+        <div class="bar"><span class="hint">Generated for the ${ids.size} fixable issue${ids.size > 1 ? "s" : ""} found on ${esc(host)}</span><button class="copy" id="fix-copy">Copy</button></div>
+        <pre id="fix-code"></pre>
+      </div>`;
+  }
+
+  /* ---------- recent scans ---------- */
+  function renderRecent(){
+    const box = $("#recent"); if (!box) return;
+    const list = store.get("sitesentry.recent", []);
+    if (!list.length || REPORT) { box.style.display = "none"; return; }
+    box.style.display = "flex";
+    box.innerHTML = "Recent:" + list.map((x, i) => `<button type="button" data-i="${i}"><b style="background:${gradeColor(x.g)}">${esc(x.g)}</b>${esc(x.h)}</button>`).join("")
+      + '<button type="button" class="clear" title="Clear history">Clear</button>';
+    box.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { $("#url").value = list[+b.dataset.i].u; $("#form").requestSubmit(); });
+    box.querySelector(".clear").onclick = () => { store.set("sitesentry.recent", []); renderRecent(); };
+  }
+  function remember(input, r){
+    const h = (r.final_url.match(/^https?:\/\/([^/]+)/) || [,input])[1];
+    const list = store.get("sitesentry.recent", []).filter(x => x.h !== h);
+    list.unshift({u: input, h, g: r.grade});
+    store.set("sitesentry.recent", list.slice(0, 6));
+    renderRecent();
+  }
 
   function gradeColor(g){
     if (g.startsWith("A")) return "var(--pass)";
@@ -277,7 +436,7 @@ body.report #results{display:block;padding-top:28px}
           <svg width="132" height="132" viewBox="0 0 132 132">
             <circle cx="66" cy="66" r="56" fill="none" stroke="var(--surface-2)" stroke-width="12"/>
             <circle id="arc" cx="66" cy="66" r="56" fill="none" stroke="${gradeColor(r.grade)}" stroke-width="12" stroke-linecap="round"
-              stroke-dasharray="${C}" stroke-dashoffset="${C}" style="transition:stroke-dashoffset 1s ease"/>
+              stroke-dasharray="${C}" stroke-dashoffset="${REPORT ? C * (1 - Math.max(r.score, 1) / 100) : C}" style="transition:stroke-dashoffset 1s ease"/>
           </svg>
           <div class="grade"><b style="color:${gradeColor(r.grade)}">${esc(r.grade)}</b><span>${r.score} / 100</span></div>
         </div>
@@ -303,6 +462,7 @@ body.report #results{display:block;padding-top:28px}
         ${top.length ? top.map((f,i) => `<div class="prio"><div class="num">${i+1}</div><div><b>${esc(f.title)} <span class="sev ${f.severity}">${f.severity}</span></b><p>${esc(f.recommendation || f.detail)}</p></div></div>`).join("")
           : '<div class="empty">Nothing important to fix. Nice work.</div>'}
       </div>
+      ${renderFixgen(r)}
 
       <div class="section-title">
         <h3>All checks</h3>
@@ -388,6 +548,8 @@ body.report #results{display:block;padding-top:28px}
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Scan failed.");
       render(data);
+      remember(url, data);
+      history.replaceState(null, "", `?url=${encodeURIComponent(url)}`);
       $("#results").style.display = "block";
       $("#results").scrollIntoView({behavior:"smooth", block:"start"});
     } catch (err) {
@@ -400,7 +562,9 @@ body.report #results{display:block;padding-top:28px}
       $("#go").disabled = false; $("#go").textContent = "Scan site";
     }
   });
-  $("#url").focus();
+  renderRecent();
+  const shared = new URLSearchParams(location.search).get("url");
+  if (shared) { $("#url").value = shared; $("#form").requestSubmit(); } else { $("#url").focus(); }
 })();
 </script>
 </body>
