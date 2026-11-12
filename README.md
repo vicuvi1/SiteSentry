@@ -6,6 +6,7 @@
 
 A passive website security scanner with a clean web interface. It grades HTTPS, TLS, security headers, cookies, CORS and email/DNS records from **A+ to F**, explains every issue in plain English, and **generates the config that fixes it**.
 
+![Cybersecurity](https://img.shields.io/badge/category-cybersecurity-6366f1?logo=hackthebox&logoColor=white)
 [![CI](https://github.com/vicuvi1/SiteSentry/actions/workflows/ci.yml/badge.svg)](https://github.com/vicuvi1/SiteSentry/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)
@@ -199,7 +200,7 @@ See [CHANGELOG.md](CHANGELOG.md) for release history.
   </tr>
 </table>
 
-Found a bug or have an idea? [Open an issue](https://github.com/vicuvi1/SiteSentry/issues). If SiteSentry helped you, a ⭐ is appreciated.
+Found a bug or have an idea? [Open an issue](https://github.com/vicuvi1/SiteSentry/issues). Found a security vulnerability? Please follow the [security policy](SECURITY.md). If SiteSentry helped you, a ⭐ is appreciated.
 
 ## License
 
