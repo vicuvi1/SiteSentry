@@ -25,6 +25,8 @@ def build_parser() -> argparse.ArgumentParser:
                    help="address for --serve (default 127.0.0.1; use 0.0.0.0 inside Docker)")
     p.add_argument("--port", type=int, default=8765, help="port for --serve (default 8765)")
     p.add_argument("--no-browser", action="store_true", help="with --serve: don't open a browser automatically")
+    p.add_argument("--allow-private", action="store_true",
+                   help="with --serve: allow scanning private/internal addresses (off by default, SSRF protection)")
     p.add_argument("--html", metavar="FILE", help="write a standalone HTML report")
     p.add_argument("--json", metavar="FILE", help="write results as JSON ('-' for stdout)")
     p.add_argument("--ports", action="store_true",
@@ -43,7 +45,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.serve:
         from .web import serve
-        serve(host=args.host, port=args.port, open_browser=not args.no_browser, timeout=args.timeout)
+        serve(host=args.host, port=args.port, open_browser=not args.no_browser, timeout=args.timeout,
+              allow_private=args.allow_private)
         return 0
     if not args.target:
         build_parser().print_help()

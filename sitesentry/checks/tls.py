@@ -56,7 +56,9 @@ def protocol_finding(version: str | None, cipher: str | None) -> Finding:
                    "Enable TLS 1.2 and 1.3 on the server.", evidence=evidence)
 
 
-def legacy_protocol_supported(host: str, port: int, version: ssl.TLSVersion, timeout: float) -> bool | None:
+def legacy_protocol_supported(
+    host: str, port: int, version: ssl.TLSVersion, timeout: float, connect_ip: str | None = None
+) -> bool | None:
     """True = server accepted it, False = refused, None = could not test locally."""
     try:
         with warnings.catch_warnings():
@@ -73,7 +75,7 @@ def legacy_protocol_supported(host: str, port: int, version: ssl.TLSVersion, tim
     except (ValueError, ssl.SSLError):
         return None
     try:
-        with socket.create_connection((host, port), timeout=timeout) as sock:
+        with socket.create_connection((connect_ip or host, port), timeout=timeout) as sock:
             with ctx.wrap_socket(sock, server_hostname=host):
                 return True
     except ssl.SSLError as exc:
@@ -102,10 +104,11 @@ def legacy_finding(results: dict[str, bool | None]) -> Finding:
                    "TLS 1.0 and 1.1 are refused.")
 
 
-def run(host: str, port: int, timeout: float = 10.0) -> list[Finding]:
+def run(host: str, port: int, timeout: float = 10.0, connect_ip: str | None = None) -> list[Finding]:
+    """connect_ip pins the TCP connection to an address vetted by the SSRF guard."""
     ctx = ssl.create_default_context()
     try:
-        with socket.create_connection((host, port), timeout=timeout) as sock:
+        with socket.create_connection((connect_ip or host, port), timeout=timeout) as sock:
             with ctx.wrap_socket(sock, server_hostname=host) as tls:
                 version, cipher, cert = tls.version(), (tls.cipher() or (None,))[0], tls.getpeercert()
     except ssl.SSLCertVerificationError:
@@ -116,12 +119,13 @@ def run(host: str, port: int, timeout: float = 10.0) -> list[Finding]:
 
     findings = [protocol_finding(version, cipher)]
     if cert and cert.get("notAfter"):
-        days_left = int((ssl.cert_time_to_seconds(cert["notAfter"]) - time.time()) // 86400)
-        findings.append(expiry_finding(days_left, _name(cert.get("issuer")), cert["notAfter"]))
+        not_after = str(cert["notAfter"])
+        days_left = int((ssl.cert_time_to_seconds(not_after) - time.time()) // 86400)
+        findings.append(expiry_finding(days_left, _name(cert.get("issuer")), not_after))
 
     results = {
-        "TLS 1.0": legacy_protocol_supported(host, port, ssl.TLSVersion.TLSv1, timeout),
-        "TLS 1.1": legacy_protocol_supported(host, port, ssl.TLSVersion.TLSv1_1, timeout),
+        "TLS 1.0": legacy_protocol_supported(host, port, ssl.TLSVersion.TLSv1, timeout, connect_ip),
+        "TLS 1.1": legacy_protocol_supported(host, port, ssl.TLSVersion.TLSv1_1, timeout, connect_ip),
     }
     findings.append(legacy_finding(results))
     return findings

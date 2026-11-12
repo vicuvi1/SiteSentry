@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # Keep GitHub Actions pinned versions up to date (the project has no Python dependencies).
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly

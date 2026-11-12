@@ -3,14 +3,15 @@ from __future__ import annotations
 
 import ssl
 import time
-from datetime import datetime, timezone
-from typing import Callable
+from collections.abc import Callable
+from datetime import UTC, datetime
 from urllib.parse import urlsplit, urlunsplit
 
 from . import scoring
 from .checks import content, cookies, cors, disclosure, email_dns, headers, misc, tls, transport
 from .models import Finding, ScanResult
 from .net import FetchError, HttpResponse, fetch_chain, request
+from .safety import BlockedTarget, TargetGuard
 
 
 class ScanError(Exception):
@@ -26,7 +27,7 @@ def normalize_target(target: str) -> str:
     parts = urlsplit(value)
     if parts.scheme not in ("http", "https") or not parts.hostname:
         raise ValueError(f"'{target}' is not a valid http(s) URL.")
-    if any(c.isspace() for c in parts.netloc):
+    if any(c.isspace() for c in parts.netloc) or parts.username or parts.password:
         raise ValueError(f"'{target}' is not a valid http(s) URL.")
     return urlunsplit((parts.scheme, parts.netloc, parts.path or "/", parts.query, ""))
 
@@ -37,8 +38,15 @@ def scan(
     timeout: float = 10.0,
     check_ports: bool = False,
     check_dns: bool = True,
+    guard: TargetGuard | None = None,
     log: Callable[[str], None] | None = None,
 ) -> ScanResult:
+    """Scan one website.
+
+    Pass a TargetGuard when scanning on behalf of other people (the web
+    server does): internal addresses then raise BlockedTarget, including
+    ones reached through redirects.
+    """
     log = log or (lambda _msg: None)
     started = time.time()
     url = normalize_target(target)
@@ -48,6 +56,13 @@ def scan(
     http_url = urlunsplit(("http", parts.netloc, parts.path, parts.query, ""))
     https_port = parts.port or 443
 
+    pinned_ip: str | None = None
+    if guard:
+        try:
+            pinned_ip = guard.resolve(host, https_port)  # raises BlockedTarget
+        except OSError as exc:
+            raise ScanError(f"Could not resolve {host}: {exc}") from exc
+
     findings: list[Finding] = []
     notes: list[str] = []
     chain: list[HttpResponse] | None = None
@@ -56,13 +71,13 @@ def scan(
 
     log(f"Connecting to {https_url}")
     try:
-        chain = fetch_chain(https_url, timeout=timeout)
+        chain = fetch_chain(https_url, timeout=timeout, guard=guard)
         https_ok = cert_ok = True
     except ssl.SSLCertVerificationError as exc:
         https_ok = True
         findings.append(tls.certificate_invalid(getattr(exc, "verify_message", "") or str(exc)))
         try:
-            chain = fetch_chain(https_url, timeout=timeout, verify=False)
+            chain = fetch_chain(https_url, timeout=timeout, verify=False, guard=guard)
         except (FetchError, ssl.SSLError) as exc2:
             notes.append(f"HTTPS content unreadable: {exc2}")
     except FetchError as exc:
@@ -72,7 +87,7 @@ def scan(
     if chain is None:
         log(f"Falling back to {http_url}")
         try:
-            chain = fetch_chain(http_url, timeout=timeout)
+            chain = fetch_chain(http_url, timeout=timeout, guard=guard)
         except (FetchError, ssl.SSLError) as exc:
             raise ScanError(f"Could not reach {host}: {exc}") from exc
 
@@ -88,7 +103,7 @@ def scan(
 
     log("Testing CORS policy")
     try:
-        probe = request(final.url, timeout=timeout, verify=cert_ok,
+        probe = request(final.url, timeout=timeout, verify=cert_ok, guard=guard,
                         extra_headers={"Origin": cors.PROBE_ORIGIN})
         findings.append(cors.check(probe))
     except (FetchError, ssl.SSLError) as exc:
@@ -96,19 +111,19 @@ def scan(
 
     log("Checking HTTP to HTTPS redirect")
     try:
-        findings.append(transport.http_redirect(request(http_url, timeout=timeout)))
+        findings.append(transport.http_redirect(request(http_url, timeout=timeout, guard=guard)))
     except (FetchError, ssl.SSLError) as exc:
         findings.append(transport.http_redirect(None, str(exc)))
 
     if https_ok and cert_ok:
         log("Inspecting TLS configuration")
-        findings += tls.run(host, https_port, timeout)
+        findings += tls.run(host, https_port, timeout, connect_ip=pinned_ip)
 
     log("Looking for security.txt")
     origin = urlunsplit((urlsplit(final.url).scheme, urlsplit(final.url).netloc, "", "", ""))
     try:
         findings.append(misc.security_txt(
-            request(origin + "/.well-known/security.txt", timeout=timeout, verify=cert_ok)))
+            request(origin + "/.well-known/security.txt", timeout=timeout, verify=cert_ok, guard=guard)))
     except (FetchError, ssl.SSLError):
         findings.append(misc.security_txt(None))
 
@@ -118,15 +133,18 @@ def scan(
 
     if check_ports:
         log("Probing commonly abused service ports")
-        findings += misc.scan_ports(host)
+        findings += misc.scan_ports(pinned_ip or host)
 
     result = ScanResult(
         target=target,
         final_url=final.url,
-        started_at=datetime.fromtimestamp(started, timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        started_at=datetime.fromtimestamp(started, UTC).strftime("%Y-%m-%d %H:%M UTC"),
         duration_seconds=time.time() - started,
         findings=findings,
         notes=notes,
     )
     result.score, result.grade = scoring.score(findings)
     return result
+
+
+__all__ = ["BlockedTarget", "ScanError", "TargetGuard", "normalize_target", "scan"]

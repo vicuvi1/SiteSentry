@@ -2,10 +2,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 
 
-class Severity(str, Enum):
+class Severity(StrEnum):
     CRITICAL = "critical"
     HIGH = "high"
     MEDIUM = "medium"
@@ -23,8 +23,8 @@ class Severity(str, Enum):
         return ["critical", "high", "medium", "low", "info"].index(self.value)
 
 
-class Status(str, Enum):
-    PASS = "pass"
+class Status(StrEnum):
+    PASS = "pass"  # noqa: S105 - a check status, not a password
     FAIL = "fail"
     WARN = "warn"
     INFO = "info"

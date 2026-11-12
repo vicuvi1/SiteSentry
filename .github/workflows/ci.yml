@@ -4,7 +4,24 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
+  lint:
+    name: Lint & type-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: pip install ruff mypy
+      - name: Ruff (style, bugs, security rules)
+        run: ruff check . --output-format github
+      - name: Mypy (static types)
+        run: mypy
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:

@@ -31,3 +31,25 @@ packages = ["sitesentry", "sitesentry.checks"]
 
 [tool.setuptools.package-data]
 sitesentry = ["ui/*.html"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "N", "A"]
+ignore = [
+  "S101",  # assert is fine in tests
+  "S311",  # random is only used for DNS query IDs, not secrets
+  "UP007", # keep Optional-style unions readable for 3.9-era readers
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "N802", "B011"]
+
+[tool.mypy]
+python_version = "3.11"
+files = ["sitesentry"]
+warn_unused_ignores = true
+warn_redundant_casts = true
+check_untyped_defs = true
