@@ -97,6 +97,10 @@ def run_bulk(args: argparse.Namespace) -> int:
         else:
             Path(args.json).write_text(text, encoding="utf-8")
             print(f"  JSON written to {args.json}")
+    errors = [it for it in items if it.result is None]
+    if errors:  # a CI gate must not silently pass when sites couldn't be scanned
+        print(f"  {len(errors)} site(s) could not be scanned.", file=sys.stderr)
+        return 2
     failing = [it for it in items if it.result and below(it.result.grade, args.fail_under)]
     if failing:
         print(f"  {len(failing)} site(s) below required grade {args.fail_under}.", file=sys.stderr)
@@ -149,6 +153,10 @@ def main(argv: list[str] | None = None) -> int:
             baseline = json.loads(Path(args.baseline).read_text(encoding="utf-8"))
         except (OSError, ValueError) as exc:
             print(f"error: can't read baseline: {exc}", file=sys.stderr)
+            return 2
+        if not (isinstance(baseline, dict) and isinstance(baseline.get("findings"), list)):
+            print("error: the baseline must be a single-site report from `sitesentry <site> --json FILE` "
+                  "(not a --list or --compare file)", file=sys.stderr)
             return 2
 
     quiet = args.json == "-"

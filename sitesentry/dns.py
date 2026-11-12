@@ -131,7 +131,10 @@ def query(name: str, qtype: int, *, timeout: float = 3.0, servers=DEFAULT_SERVER
         qid = random.randint(0, 0xFFFF)
         packet = build_query(name, qtype, qid)
         try:
-            return parse_response(_ask(server, packet, timeout), expected_id=qid)
+            resp = parse_response(_ask(server, packet, timeout), expected_id=qid)
+            if resp.rcode not in (0, RCODE_NXDOMAIN):  # SERVFAIL, REFUSED... aren't answers
+                raise DNSError(f"{server} returned DNS error code {resp.rcode}")
+            return resp
         except (OSError, DNSError, struct.error, IndexError) as exc:
             last = exc
     raise DNSError(f"DNS lookup for {name} failed: {last}")

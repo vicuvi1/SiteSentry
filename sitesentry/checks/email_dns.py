@@ -12,17 +12,33 @@ CAT = "Email & DNS"
 Resolver = Callable[[str, int], dns.DNSResponse]
 
 
+# Common two-label public suffixes, so "shop.example.co.uk" -> "example.co.uk".
+# (A best-effort subset of the Public Suffix List, keeping the tool dependency-free.)
+TWO_LABEL_SUFFIXES = {
+    "co.uk", "org.uk", "ac.uk", "gov.uk", "me.uk", "ltd.uk", "plc.uk", "com.au", "net.au", "org.au", "edu.au",
+    "gov.au", "co.nz", "org.nz", "co.jp", "ne.jp", "or.jp", "ac.jp", "co.kr", "or.kr", "com.br", "com.cn", "net.cn",
+    "org.cn", "com.mx", "com.tr", "co.in", "net.in", "org.in", "co.za", "com.sg", "com.hk", "com.tw", "co.il",
+    "com.ar", "com.co", "com.pl", "com.ro", "co.id", "com.my", "com.ph", "com.vn", "com.ua", "com.eg", "com.sa",
+}
+
+
 def org_domain(host: str) -> str | None:
-    """Best-effort registrable domain: strips 'www.'. Returns None for IPs/localhost."""
+    """Best-effort organisational (registrable) domain: docs.github.com -> github.com.
+
+    SPF and DMARC live on the domain people send email from, so a subdomain website is judged
+    by its organisation's records. Returns None for IPs and local names.
+    """
     host = host.strip(".").lower()
     try:
         ipaddress.ip_address(host)
         return None
     except ValueError:
         pass
-    if "." not in host or host.endswith((".localhost", ".test", ".local")):
+    labels = host.split(".")
+    if len(labels) < 2 or host.endswith((".localhost", ".test", ".local", ".internal")):
         return None
-    return host[4:] if host.startswith("www.") else host
+    keep = 3 if ".".join(labels[-2:]) in TWO_LABEL_SUFFIXES and len(labels) >= 3 else 2
+    return ".".join(labels[-keep:])
 
 
 def parents(host: str, stop: str) -> list[str]:
@@ -111,7 +127,14 @@ def run(host: str, resolver: Resolver | None = None, timeout: float = 3.0) -> li
     findings: list[Finding] = []
     try:
         findings.append(check_spf(resolve(domain, dns.TYPE_TXT).txt()))
-        findings.append(check_dmarc(resolve(f"_dmarc.{domain}", dns.TYPE_TXT).txt(), domain))
+        # DMARC (RFC 7489 6.6.3): the host's own record if it has one, else the organisational domain's.
+        dmarc_records: list[str] = []
+        if host.strip(".").lower() != domain:
+            dmarc_records = [r for r in resolve(f"_dmarc.{host.strip('.').lower()}", dns.TYPE_TXT).txt()
+                             if r.lower().replace(" ", "").startswith("v=dmarc1")]
+        if not dmarc_records:
+            dmarc_records = resolve(f"_dmarc.{domain}", dns.TYPE_TXT).txt()
+        findings.append(check_dmarc(dmarc_records, domain))
         caa, found_at = [], None
         for name in parents(host, domain):  # CAA is inherited from parent domains
             caa = resolve(name, dns.TYPE_CAA).caa()

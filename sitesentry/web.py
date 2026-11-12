@@ -74,7 +74,9 @@ class SiteSentryServer(ThreadingHTTPServer):
 class Handler(BaseHTTPRequestHandler):
     server: SiteSentryServer
     server_version = "SiteSentry"
-    sys_version = ""  # don't advertise the Python version (we flag that in others!)
+
+    def version_string(self) -> str:
+        return "SiteSentry"  # no Python version banner (we flag exactly that on other sites)
 
     def log_message(self, format, *args):  # keep the terminal tidy  # noqa: A002
         pass
@@ -115,11 +117,28 @@ class Handler(BaseHTTPRequestHandler):
             name = host.rsplit(":", 1)[0] if ":" in host else host
         return name in LOOPBACK_NAMES
 
+    def _same_origin(self) -> bool:
+        """CSRF defence: refuse API calls that a *different* website makes the browser send.
+
+        Browsers mark such requests with Sec-Fetch-Site: cross-site and/or a foreign Origin.
+        Requests without these headers (curl, scripts, the CLI) are not browser-driven CSRF.
+        """
+        site = (self.headers.get("Sec-Fetch-Site") or "").lower()
+        if site and site not in ("same-origin", "none"):
+            return False
+        origin = self.headers.get("Origin")
+        if origin is None:
+            return True
+        return urlsplit(origin).netloc.lower() == (self.headers.get("Host") or "").lower()
+
     def do_GET(self) -> None:  # noqa: N802
         if not self._host_allowed():
             self._json(421, {"error": "Unexpected Host header."})
             return
         url = urlsplit(self.path)
+        if url.path.startswith("/api/") and not self._same_origin():
+            self._json(403, {"error": "Cross-site requests are not allowed."})
+            return
         if url.path in ("/", "/index.html"):
             self._send(200, report.ui_page(), "text/html; charset=utf-8")
         elif url.path == "/api/scan":
@@ -157,8 +176,8 @@ class Handler(BaseHTTPRequestHandler):
             return 403, {"error": str(exc)}
         except ScanError as exc:
             return 502, {"error": str(exc)}
-        except (BrokenPipeError, ConnectionResetError):
-            raise  # client went away mid-stream
+        except ConnectionError:
+            raise  # client went away mid-stream (BrokenPipe / Reset / Aborted)
         except Exception:  # never crash or leak internals on one bad scan
             return 500, {"error": "Unexpected error while scanning."}
         finally:
@@ -204,7 +223,7 @@ class Handler(BaseHTTPRequestHandler):
                 emit("result", payload)
             else:
                 emit("fail", {"status": status, **payload})
-        except (BrokenPipeError, ConnectionResetError):
+        except ConnectionError:
             pass  # browser closed the tab; the scan was aborted by the failed write
 
 

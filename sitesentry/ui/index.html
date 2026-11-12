@@ -139,7 +139,7 @@ kbd{font-family:var(--mono);font-size:12px;color:var(--faint);border:1px solid v
 
 /* ---------- cards ---------- */
 .card{background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
-#results{padding:18px 0 64px}
+#results{padding-top:18px;padding-bottom:64px}
 .reveal{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
 .reveal:nth-child(2){animation-delay:.06s}.reveal:nth-child(3){animation-delay:.12s}.reveal:nth-child(4){animation-delay:.18s}.reveal:nth-child(5){animation-delay:.24s}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -245,7 +245,7 @@ details[open] .chev{transform:rotate(90deg)}
 .consoles{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:820px;margin:26px auto 0}
 .consoles .console{margin:0;max-width:none}
 .consoles .console .lines{min-height:110px;max-height:200px}
-#compare-results{padding:20px 0 64px}
+#compare-results{padding-top:20px;padding-bottom:64px}
 .vs-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .vs-card{padding:24px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden}
 .vs-card.win{border-color:color-mix(in srgb,var(--pass) 55%,var(--border))}
@@ -289,6 +289,10 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
   .body{padding-left:20px}
   .cats li{grid-template-columns:110px 1fr 34px}
   .brand small,.seg button span{display:none}
+  .cmp-table th,.cmp-table td{padding:9px 12px}
+  .cmp-table th{overflow-wrap:anywhere;font-size:10.5px;letter-spacing:.04em}
+  .cmp-table td.n,.cmp-table td.c{width:auto;white-space:nowrap}
+  .st .txt{display:none}
 }
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -453,7 +457,7 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
       "B":"Decent, but a few missing protections are worth fixing.", "C":"Several important protections are missing.",
       "D":"Weak configuration. Visitors are exposed to avoidable risks." })[g] || "Serious problems found. Fix the critical issues first.";
   }
-  function hostOf(u){ return (String(u).match(/^https?:\/\/([^/:]+)/) || [, u])[1]; }
+  function hostOf(u){ try { return new URL(u).hostname || String(u); } catch { return String(u); } }  // IPv6-safe
   function categories(r){
     if (r.categories && Object.keys(r.categories).length) return r.categories;
     const t = {};
@@ -643,7 +647,8 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
     on("#dl-html", async () => {
       const page = await (await fetch("/")).text();
       const data = JSON.stringify(r).replace(/</g, "\\u003c");
-      download(page.replace("<!-" + "-REPORT_DATA-" + "->", `<script>window.__SITESENTRY_REPORT__=${data};<\/script>`), "text/html", "html", r);
+      const tag = `<script>window.__SITESENTRY_REPORT__=${data};<\/script>`;
+      download(page.replace("<!-" + "-REPORT_DATA-" + "->", () => tag), "text/html", "html", r);  // function: no $-pattern expansion
     });
   }
   function download(content, type, ext, r){
@@ -703,7 +708,7 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
     box.hidden = false;
     box.innerHTML = "Recent:" + list.map((x, i) => `<button type="button" class="chip-btn" data-i="${i}"><b style="background:${gradeColor(x.g)}">${esc(x.g)}</b>${esc(x.h)}</button>`).join("")
       + '<button type="button" class="chip-btn plain" id="clear-recent" title="Clear history">Clear</button>';
-    box.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { $("#url").value = list[+b.dataset.i].u; $("#form").requestSubmit(); });
+    box.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { if (scanning) return; $("#url").value = list[+b.dataset.i].u; $("#form").requestSubmit(); });
     $("#clear-recent").onclick = () => { store.set("sitesentry.recent", []); renderRecent(); };
   }
   function remember(input, r){
@@ -713,10 +718,12 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
   }
 
   /* ---------------- scan view ---------------- */
-  $$("[data-ex]").forEach(b => b.onclick = () => { $("#url").value = b.dataset.ex; $("#form").requestSubmit(); });
+  $$("[data-ex]").forEach(b => b.onclick = () => { if (scanning) return; $("#url").value = b.dataset.ex; $("#form").requestSubmit(); });
+  let scanning = false, comparing = false;
   $("#form").addEventListener("submit", async e => {
     e.preventDefault();
-    const url = $("#url").value.trim(); if (!url) return;
+    const url = $("#url").value.trim(); if (!url || scanning) return;
+    scanning = true;
     $("#error").hidden = true; $("#results").hidden = true; $("#features").hidden = true;
     $("#go").disabled = true; $("#go").textContent = "Scanning…";
     const con = makeConsole($("#console"), `sitesentry scan ${url.replace(/^https?:\/\//, "")}`);
@@ -729,7 +736,7 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
     } catch (err) {
       con.fail(err.message); showError($("#error"), err.message); $("#features").hidden = false;
     } finally {
-      $("#go").disabled = false; $("#go").textContent = "Scan site";
+      scanning = false; $("#go").disabled = false; $("#go").textContent = "Scan site";
     }
   });
 
@@ -739,7 +746,7 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
     el.innerHTML = '<div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="title" data-title></span><span data-time>0.0s</span></div><div class="progress"><i></i></div><div class="lines"></div>';
     return el;
   }
-  const stIcon = s => s ? `<span class="st"><span class="ico ${s}">${ICONS[s]}</span>${s}</span>` : '<span class="st" style="color:var(--faint)">–</span>';
+  const stIcon = s => s ? `<span class="st" title="${s}"><span class="ico ${s}">${ICONS[s]}</span><span class="txt">${s}</span></span>` : '<span class="st" style="color:var(--faint)" title="not checked">–</span>';
   function renderCompare(a, b){
     const ca = categories(a), cb = categories(b);
     const win = a.score === b.score ? null : a.score > b.score ? "a" : "b";
@@ -774,7 +781,8 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
   }
   $("#cmp-form").addEventListener("submit", async e => {
     e.preventDefault();
-    const ua = $("#cmp-a").value.trim(), ub = $("#cmp-b").value.trim(); if (!ua || !ub) return;
+    const ua = $("#cmp-a").value.trim(), ub = $("#cmp-b").value.trim(); if (!ua || !ub || comparing) return;
+    comparing = true;
     $("#cmp-error").hidden = true; $("#compare-results").hidden = true;
     const wrap = $("#cmp-consoles"); wrap.innerHTML = ""; wrap.hidden = false;
     const ea = miniConsole(), eb = miniConsole(); wrap.append(ea, eb);
@@ -787,7 +795,7 @@ body.compare-report #compare-results{padding-top:30px}  /* static reports render
       history.replaceState(null, "", `?a=${encodeURIComponent(ua)}&b=${encodeURIComponent(ub)}`);
       setTimeout(() => $("#compare-results").scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block: "start"}), 350);
     } catch (err) { showError($("#cmp-error"), err.message); }
-    finally { $("#cmp-go").disabled = false; $("#cmp-go").textContent = "Compare"; }
+    finally { comparing = false; $("#cmp-go").disabled = false; $("#cmp-go").textContent = "Compare"; }
   });
 
   /* ---------------- view switching, shortcuts, deep links ---------------- */

@@ -11,7 +11,7 @@ A passive website security scanner with a clean web interface. It grades HTTPS, 
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen)
 [![CodeQL](https://github.com/vicuvi1/SiteSentry/actions/workflows/codeql.yml/badge.svg)](https://github.com/vicuvi1/SiteSentry/actions/workflows/codeql.yml)
-![Tests](https://img.shields.io/badge/tests-85-brightgreen)
+![Tests](https://img.shields.io/badge/tests-103-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 **[🌐 Project page](https://vicuvi1.github.io/SiteSentry/)** · **[📊 Research: 100 popular sites scanned](https://vicuvi1.github.io/SiteSentry/research.html)** · **[📄 Live report: github.com (A+)](https://vicuvi1.github.io/SiteSentry/report-github.com.html)** · **[📄 Live report: example.com (D)](https://vicuvi1.github.io/SiteSentry/report-example.com.html)** · **[⚖️ Live comparison](https://vicuvi1.github.io/SiteSentry/compare-github-vs-example.html)**
@@ -206,7 +206,7 @@ sitesentry/
 
 Design decisions:
 - **Zero dependencies.** Built on `http.client`, `ssl` and `socket`. The standard library can't query TXT or CAA records, so I wrote a **small DNS client** that builds query packets by hand and parses binary responses, including compression pointers and TCP fallback for truncated answers.
-- **Checks are pure functions** that take collected data and return `Finding` objects. 85 unit, end-to-end and attack-driven security tests run without internet access: against hand-built DNS packets, a fake resolver, and a local, deliberately insecure web server.
+- **Checks are pure functions** that take collected data and return `Finding` objects. 103 unit, end-to-end, regression and attack-driven security tests run without internet access: against hand-built DNS packets, a fake resolver, and a local, deliberately insecure web server.
 - **Security tooling on itself.** Every push runs **CodeQL** (security-extended queries), **ruff** with bandit security rules, and **mypy**. Dependabot keeps CI and Docker dependencies current.
 - **It follows its own advice.** The web UI is served with a strict **nonce-based CSP**, `frame-ancestors 'none'`, `nosniff` and `no-referrer`. Scan data embedded in HTML reports is escaped so a malicious target can't inject script into your report, and a regression test checks this.
 

@@ -10,7 +10,7 @@ import http.client
 import socket
 import ssl
 from dataclasses import dataclass, field
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import quote, urljoin, urlsplit
 
 from . import __version__
 from .safety import TargetGuard
@@ -18,6 +18,9 @@ from .safety import TargetGuard
 USER_AGENT = f"SiteSentry/{__version__} (passive website security scanner)"
 MAX_BODY_BYTES = 512 * 1024
 REDIRECT_CODES = {301, 302, 303, 307, 308}
+# Characters left as-is when percent-encoding (existing %XX escapes are preserved).
+PATH_SAFE = "/%:@!$&'()*+,;=-._~"
+QUERY_SAFE = PATH_SAFE + "?"
 
 
 class FetchError(Exception):
@@ -137,9 +140,9 @@ def request(
     parts = urlsplit(url)
     if not parts.hostname:
         raise FetchError(f"Invalid URL: {url}")
-    path = parts.path or "/"
+    path = quote(parts.path or "/", safe=PATH_SAFE)
     if parts.query:
-        path += "?" + parts.query
+        path += "?" + quote(parts.query, safe=QUERY_SAFE)
     if parts.scheme not in ("http", "https"):
         raise FetchError(f"Unsupported scheme: {parts.scheme}")
 
@@ -177,7 +180,7 @@ def request(
         return HttpResponse(url, resp.status, resp.reason, list(resp.getheaders()), body)
     except ssl.SSLCertVerificationError:
         raise
-    except (OSError, http.client.HTTPException) as exc:
+    except (OSError, http.client.HTTPException, ValueError) as exc:  # ValueError covers UnicodeError
         raise FetchError(f"{type(exc).__name__}: {exc}") from exc
     finally:
         conn.close()
@@ -190,16 +193,29 @@ def fetch_chain(
     verify: bool = True,
     max_redirects: int = 5,
     guard: TargetGuard | None = None,
+    notes: list[str] | None = None,
 ) -> list[HttpResponse]:
     """Follow redirects manually and return every response in order.
 
     The guard (if any) is applied to every hop, so a redirect can't lead
     the scanner into an internal network.
+
+    Only the first request's failure is raised. If a later hop fails (dead redirect
+    target, another host's bad certificate, mailto: Location...), the chain stops at
+    the last good response and the problem is added to ``notes``: it says nothing
+    about whether the scanned site itself supports HTTPS.
     """
     chain: list[HttpResponse] = []
     current = url
     for _ in range(max_redirects + 1):
-        resp = request(current, timeout=timeout, verify=verify, guard=guard)
+        try:
+            resp = request(current, timeout=timeout, verify=verify, guard=guard)
+        except (FetchError, ssl.SSLError) as exc:
+            if not chain:
+                raise
+            if notes is not None:
+                notes.append(f"Redirect to {current} could not be followed: {exc}")
+            break
         chain.append(resp)
         if not resp.is_redirect:
             break

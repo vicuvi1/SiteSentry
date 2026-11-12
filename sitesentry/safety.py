@@ -17,6 +17,10 @@ from __future__ import annotations
 import ipaddress
 import socket
 
+NAT64_WKP = ipaddress.ip_network("64:ff9b::/96")      # well-known NAT64 prefix: last 32 bits are IPv4
+NAT64_LOCAL = ipaddress.ip_network("64:ff9b:1::/48")  # local-use NAT64
+IPV4_COMPAT = ipaddress.ip_network("::/96")           # deprecated IPv4-compatible (::7f00:1)
+
 
 class BlockedTarget(Exception):  # noqa: N818 - reads naturally at call sites
     """The target resolves to a private, loopback or otherwise reserved address."""
@@ -28,10 +32,14 @@ def is_public_ip(ip: str) -> bool:
     except ValueError:
         return False
     if isinstance(addr, ipaddress.IPv6Address):
+        if addr.is_site_local or addr in NAT64_LOCAL:  # deprecated fec0::/10, local-use NAT64
+            return False
         if addr.ipv4_mapped:  # ::ffff:127.0.0.1 is still loopback
             addr = addr.ipv4_mapped
         elif addr.sixtofour:  # 2002:7f00:1::/48 embeds 127.0.0.1
             addr = addr.sixtofour
+        elif addr in NAT64_WKP or addr in IPV4_COMPAT:  # 64:ff9b::a9fe:a9fe = 169.254.169.254
+            addr = ipaddress.IPv4Address(int(addr) & 0xFFFFFFFF)
     return addr.is_global and not addr.is_multicast
 
 

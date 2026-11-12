@@ -10,11 +10,28 @@
 - **Bulk scanning:** `--list sites.txt` with parallel workers and `--csv` output.
 - **Regression checks:** `--baseline old.json` shows fixed/regressed checks; `--fail-on-regression` for CI.
 - "Copy link" button and `?a=&b=` deep links for comparisons.
-- 13 new tests (85 total), covering the SSE stream, bulk, diff and compare (including an XSS regression test for comparison reports).
+- 31 new tests (103 total), covering the SSE stream, bulk, diff and compare (including an XSS regression test for comparison reports).
+
+### Security
+- **CSRF protection** for the local web server: cross-site requests (foreign `Origin` or `Sec-Fetch-Site: cross-site`) are refused, so another website can't make a visitor's machine run scans.
+- SSRF guard now also blocks NAT64 (`64:ff9b::/96`), IPv4-compatible (`::/96`) and deprecated site-local IPv6 forms that embed internal addresses.
+- The `Server` header is exactly `SiteSentry` (no Python version, no trailing space).
 
 ### Fixed
-- CSV output had blank rows on Windows (`
-` line endings).
+- A failing redirect *after* the first hop (dead target, another host's certificate) was reported as "HTTPS unavailable" and forced an F. Now the chain stops at the last good response and the problem is noted.
+- Redirects to non-ASCII URLs or URLs with spaces crashed the scan; paths are now percent-encoded.
+- With an explicit port (`https://host:8443`), the plain-HTTP check probed the TLS port and vice versa.
+- Subdomains (`docs.github.com`) failed SPF, DMARC and CAA although their organisation passes. Records are now taken from the organisational domain, with RFC 7489 DMARC fallback and CAA inheritance.
+- DNS `SERVFAIL`/`REFUSED` answers were treated as "record missing" instead of a lookup error.
+- `security.txt` redirects (allowed by RFC 9116) are now followed.
+- `--baseline` with the wrong JSON shape crashed (exit 1 = "regression"); it now exits 2 with a clear message.
+- `--list` exited 0 when sites couldn't be scanned, so a CI gate passed silently; it now exits 2.
+- UI: starting a second scan while one was running interleaved both scans; one scan at a time now.
+- UI: `$` characters in scan data corrupted the downloaded HTML report.
+- UI: IPv6 hosts broke headings, filenames and generated config.
+- UI: results touched the screen edges on phones; comparison tables are now compact on small screens.
+- Closing the browser mid-scan printed a traceback on Windows (`ConnectionAbortedError`).
+- CSV output had blank rows on Windows (doubled CR characters in line endings).
 - Saved HTML reports no longer play entrance animations (print and PDF friendly).
 
 ## [1.2.0] - 2026-11-12

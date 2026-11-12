@@ -34,7 +34,7 @@ class Diff:
 
 def compare(baseline: dict, current: ScanResult) -> Diff:
     """baseline is a dict produced by `sitesentry ... --json` (ScanResult.to_dict())."""
-    old = {f["check_id"]: f for f in baseline.get("findings", [])}
+    old = {f["check_id"]: f for f in baseline.get("findings", []) if isinstance(f, dict) and "check_id" in f}
     regressions: list[Change] = []
     improvements: list[Change] = []
     new_checks: list[Change] = []
@@ -45,10 +45,10 @@ def compare(baseline: dict, current: ScanResult) -> Diff:
             if after in ("fail", "warn"):
                 new_checks.append(Change(f.check_id, f.title, "-", after))
             continue
-        b, a = STATUS_RANK.get(before["status"]), STATUS_RANK.get(after)
+        b, a = STATUS_RANK.get(str(before.get("status"))), STATUS_RANK.get(after)
         if b is None or a is None or a == b:
             continue
-        change = Change(f.check_id, f.title, before["status"], after)
+        change = Change(f.check_id, f.title, str(before.get("status")), after)
         (improvements if a > b else regressions).append(change)
     return Diff(int(baseline.get("score", 0)), current.score, str(baseline.get("grade", "?")), current.grade,
                 regressions, improvements, new_checks)

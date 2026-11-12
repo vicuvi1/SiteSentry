@@ -32,6 +32,11 @@ def normalize_target(target: str) -> str:
     return urlunsplit((parts.scheme, parts.netloc, parts.path or "/", parts.query, ""))
 
 
+def _netloc(host: str, port: int, default: int) -> str:
+    name = f"[{host}]" if ":" in host else host  # IPv6 literals need brackets
+    return name if port == default else f"{name}:{port}"
+
+
 def scan(
     target: str,
     *,
@@ -52,9 +57,14 @@ def scan(
     url = normalize_target(target)
     parts = urlsplit(url)
     host = parts.hostname or ""
-    https_url = urlunsplit(("https", parts.netloc, parts.path, parts.query, ""))
-    http_url = urlunsplit(("http", parts.netloc, parts.path, parts.query, ""))
-    https_port = parts.port or 443
+    # A port typed together with a scheme belongs to that scheme only; the other scheme uses its
+    # default (https://host:8443 -> plain HTTP is checked on :80, not on the TLS port). Without a
+    # scheme ("host:8080") we can't tell, so the port is used for both attempts.
+    explicit_scheme = "://" in target
+    https_port = parts.port if parts.port and (parts.scheme == "https" or not explicit_scheme) else 443
+    http_port = parts.port if parts.port and (parts.scheme == "http" or not explicit_scheme) else 80
+    https_url = urlunsplit(("https", _netloc(host, https_port, 443), parts.path, parts.query, ""))
+    http_url = urlunsplit(("http", _netloc(host, http_port, 80), parts.path, parts.query, ""))
 
     pinned_ip: str | None = None
     if guard:
@@ -72,7 +82,7 @@ def scan(
 
     log(f"Connecting to {https_url}")
     try:
-        chain = fetch_chain(https_url, timeout=timeout, guard=guard)
+        chain = fetch_chain(https_url, timeout=timeout, guard=guard, notes=notes)
         https_ok = cert_ok = True
     except ssl.SSLCertVerificationError as exc:
         https_ok = True
@@ -80,7 +90,7 @@ def scan(
         chain_only = is_chain_error(exc)
         findings.append(tls.chain_incomplete(message, bool(CA_BUNDLE)) if chain_only else tls.certificate_invalid(message))
         try:
-            chain = fetch_chain(https_url, timeout=timeout, verify=False, guard=guard)
+            chain = fetch_chain(https_url, timeout=timeout, verify=False, guard=guard, notes=notes)
         except (FetchError, ssl.SSLError) as exc2:
             notes.append(f"HTTPS content unreadable: {exc2}")
     except FetchError as exc:
@@ -90,7 +100,7 @@ def scan(
     if chain is None:
         log(f"Falling back to {http_url}")
         try:
-            chain = fetch_chain(http_url, timeout=timeout, guard=guard)
+            chain = fetch_chain(http_url, timeout=timeout, guard=guard, notes=notes)
         except (FetchError, ssl.SSLError) as exc:
             raise ScanError(f"Could not reach {host}: {exc}") from exc
 
@@ -124,9 +134,9 @@ def scan(
 
     log("Looking for security.txt")
     origin = urlunsplit((urlsplit(final.url).scheme, urlsplit(final.url).netloc, "", "", ""))
-    try:
+    try:  # RFC 9116 allows redirecting to the canonical location
         findings.append(misc.security_txt(
-            request(origin + "/.well-known/security.txt", timeout=timeout, verify=cert_ok, guard=guard)))
+            fetch_chain(origin + "/.well-known/security.txt", timeout=timeout, verify=cert_ok, guard=guard)[-1]))
     except (FetchError, ssl.SSLError):
         findings.append(misc.security_txt(None))
 
